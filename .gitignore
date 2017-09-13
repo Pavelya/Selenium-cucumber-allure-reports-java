@@ -37,6 +37,11 @@ Thumbs.db
 ######################
 /Screenshots
 
+# Allure reports #
+######################
+/Screenshots
+allure-results
+
 # Webdriver #
 ######################
 /src/main/resources/selenium/

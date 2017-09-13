@@ -20,7 +20,7 @@ import com.qa.tlv.logger.Log;
 
 import methods.PropertiesManagementMethods;
 
-public class Env {
+public class BrowserManagement {
 	static WebDriver driver = null;
 	static String browserName = null;
 	static String cloudBrowserConfigFile = null;
@@ -28,31 +28,27 @@ public class Env {
 	static String currentPath = System.getProperty("user.dir");
 	static Properties prop = new Properties();
 	static PropertiesManagementMethods propertiesObj = new PropertiesManagementMethods();
-	static String OS;
-	static String chromeDriverPath;
+	static ChromeDriverSetup chromeDriverSetup = new ChromeDriverSetup();
 
-	public static String getOS() {
-		OS = System.getProperty("os.name").toLowerCase();
-		Log.INFO("Curent OS: " + OS);
-		return OS;
-	}
+	static String chromeDriverPath;
 
 	public static String getChromeDriverPath() {
 
-		if (getOS().toLowerCase().contains("win")) {
+		if (propertiesObj.isWindows()) {
 			chromeDriverPath = propertiesObj.getProperty("winChromeDrverPath");
 		}
 
-		else if (getOS().toLowerCase().contains("mac")) {
+		else if (propertiesObj.isMac()) {
 			chromeDriverPath = propertiesObj.getProperty("macChromeDrverPath");
 		}
 
-		else if (getOS().toLowerCase().contains("aix")
-				|| (getOS().toLowerCase().contains("nix") || (getOS().toLowerCase().contains("nux")))) {
+		else if (propertiesObj.isUnix()) {
 			chromeDriverPath = propertiesObj.getProperty("linuxChromeDrverPath");
 		}
 		return chromeDriverPath;
 	}
+	
+	
 
 	public static String getBrowserName() {
 		browserName = System.getProperty("browser");
@@ -122,20 +118,26 @@ public class Env {
 	}
 
 	public static WebDriver CreateWebDriver(String browser) {
-		Log.INFO("Browser in current test: " + browser);
+
+		// print initial config data
+		String OS = System.getProperty("os.name").toLowerCase();
+		String environment = System.getProperty("env").toLowerCase();
+		Log.INFO("Operation system: " + OS);
+		Log.INFO("Browser: " + browser);
+		Log.INFO("Environment: " + environment);
+		
 
 		switch (browser.toLowerCase()) {
 		case "ff":
 		case "firefox":
-			// ProfilesIni allProfiles = new ProfilesIni();
-			// FirefoxProfile profile = allProfiles.getProfile("selenium");
-			// driver = new FirefoxDriver(profile);
 			driver = new FirefoxDriver();
 			break;
 
 		case "ch":
 		case "chrome":
-			System.setProperty("webdriver.chrome.driver", getChromeDriverPath());
+			chromeDriverSetup.downloadChromeDriver();
+			chromeDriverSetup.unZipIt();
+			System.setProperty("webdriver.chrome.driver", chromeDriverSetup.getChromeDriverPath());
 
 			driver = new ChromeDriver();
 			break;

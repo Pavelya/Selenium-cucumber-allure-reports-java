@@ -3,9 +3,9 @@ AutomationBase
 
 
 
-#DOCUMENTATION
+##DOCUMENTATION
 * [Installation](doc/installation.md)
-* [Predefined steps](doc/canned_steps.md)
+* [Run tests](doc/run_tests.md)
 
 
 ## HOW TO RUN TESTS

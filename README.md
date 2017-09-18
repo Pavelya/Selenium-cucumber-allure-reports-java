@@ -6,6 +6,7 @@ AutomationBase
 ##DOCUMENTATION
 * [Installation](doc/installation.md)
 * [Run tests](doc/run_tests.md)
+* [Pass external parameters to test](doc/working_with_parameters.md)
 
 
 ## HOW TO RUN TESTS

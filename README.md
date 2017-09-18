@@ -11,7 +11,7 @@ AutomationBase
 
 
 ## HOW TO RUN TESTS
-mvn clean -q -U install -Dtest=BaseRunner -Dbrowser=chrome -Denv=ENVIRONMENT -Dcucumber.options= "--tags @TAG_NAME"
+mvn clean test  "-Dbrowser=chrome" "-Denv=pp1" "-Dtest=BaseRunner" "-Dcucumber.options=--tags @functional_tests" -Dcucumber.options="--plugin io.qameta.allure.cucumberjvm.AllureCucumberJvm"
 
 ## CONTACTS
 Pavel Yampolsky M: +972 (54) 3933528 S: pavel.yampolsky.willhill E: 2pavelya@gmail.com

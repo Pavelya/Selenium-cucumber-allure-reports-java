@@ -19,6 +19,7 @@ import com.qa.tlv.logger.Log;
 public class PropertiesManagementMethods implements BaseTest {
 
 	static String propertiesFilePath = "src/main/resources/config.properties";
+	static String seleniumPropertiesFilePath = "src/main/resources/selenium.properties";
 	static String environmentPropertiesFilePath = "src/main/resources/ENV.environment.properties";
 	static String environment = System.getProperty("env").toLowerCase();
 
@@ -61,6 +62,29 @@ public class PropertiesManagementMethods implements BaseTest {
 		InputStream is;
 		try {
 			is = new FileInputStream(propertiesFilePath);
+
+			prop.load(is);
+			String propertieValue = prop.getProperty(propName);
+
+			is.close();
+
+			return propertieValue;
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+
+	}
+	
+	public String getSeleniumProperty(String propName) {
+		Properties prop = new Properties();
+
+		InputStream is;
+		try {
+			is = new FileInputStream(seleniumPropertiesFilePath);
 
 			prop.load(is);
 			String propertieValue = prop.getProperty(propName);

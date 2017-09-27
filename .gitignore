@@ -37,19 +37,15 @@ Thumbs.db
 ######################
 /Screenshots
 
-# Allure reports #
+# Reports #
 ######################
-/Screenshots
-allure-results
+/allure-results/
+/allure-report/
+/target/
 
 # Webdriver #
 ######################
 /src/main/resources/selenium/
-/target/
-
-# Temp files #
-######################
-/src/test/resources/temp.test.properties
 
 # Output results file generated during tests #
 ############################################

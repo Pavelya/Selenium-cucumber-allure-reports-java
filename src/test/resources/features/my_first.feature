@@ -1,9 +1,10 @@
-@functional_tests
+@functional_tests_test
+@pack
 Feature: Test page login 
 	As a user I should able to login to selenium test page
  
 Scenario: I login with valid credential 
-	Given I navigate to "http://the-internet.herokuapp.com/login" 
+	Given I navigate to http://the-internet.herokuapp.com/login 
 	And enter username 
 	And enter password 
 	#And I enter "tomsmith" into input field having id "username"

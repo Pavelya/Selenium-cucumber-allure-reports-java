@@ -11,7 +11,7 @@ public class PredefinedStepDefinitions implements BaseTest {
 	// Navigation Steps
 
 	// Step to navigate to specified URL
-	@Then("^I navigate to \"([^\"]*)\"$")
+	@Then("^I navigate to (.*)$")
 	public void navigate_to(String link) {
 		navigationObj.navigateTo(link);
 	}

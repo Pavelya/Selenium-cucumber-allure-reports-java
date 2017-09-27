@@ -1,5 +1,7 @@
 package com.qa.tlv.pageObjects;
 
+import java.io.IOException;
+
 import com.qa.tlv.environment.BaseTest;
 import com.qa.tlv.logger.Log;
 
@@ -29,17 +31,19 @@ public class LoginWindowPageObject implements BaseTest {
 
 	}
 
-	public LoginWindowPageObject enterUsername() {
+	public LoginWindowPageObject enterUsername() throws IOException {
 
 		Log.INFO("Enter username");
 		inputObj.enterText("id", username, usernameId);
+		screenshotObj.takeScreenShot();
 		return this;
 	}
 
-	public LoginWindowPageObject enterPassword() {
+	public LoginWindowPageObject enterPassword() throws IOException {
 
 		Log.INFO("Enter password");
-		inputObj.enterText("id", password, "password");
+		inputObj.enterText("id", password, "ppassword");
+		
 		return this;
 	}
 

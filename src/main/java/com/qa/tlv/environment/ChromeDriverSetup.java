@@ -18,43 +18,43 @@ public class ChromeDriverSetup {
 	static PropertiesManagementMethods propertiesObj = new PropertiesManagementMethods();
 	static String downloadChromeDriverPath;
 
-	static String chromeDriverVersion = propertiesObj.getProperty("chomeDriverVersion");
-	static String baseChromeDriverDownloadPath = propertiesObj.getProperty("baseChromeDriverDownloadPath");
+	static String chromeDriverVersion = propertiesObj.getSeleniumProperty("chomeDriverVersion");
+	static String baseChromeDriverDownloadPath = propertiesObj.getSeleniumProperty("baseChromeDriverDownloadPath");
 	static String fromFile = baseChromeDriverDownloadPath + chromeDriverVersion + getdownloadChromeDriverPath();
-	static String downloadFolderToUnzip = propertiesObj.getProperty("downloadFolderToUnzip");
-	static String toFile = propertiesObj.getProperty("localDownloadPathToDownloadChromeDriver")
+	static String downloadFolderToUnzip = propertiesObj.getSeleniumProperty("downloadFolderToUnzip");
+	static String toFile = propertiesObj.getSeleniumProperty("localDownloadPathToDownloadChromeDriver")
 			+ getdownloadChromeDriverPath();
 	static String subFolderBasedOs = System.getProperty("os.name").toLowerCase().replace(" ", "_");
-	
+
 	static String chromeDriverPath;
 
 	public static String getdownloadChromeDriverPath() {
 
 		if (propertiesObj.isWindows()) {
-			downloadChromeDriverPath = propertiesObj.getProperty("windowsChromeDriver");
+			downloadChromeDriverPath = propertiesObj.getSeleniumProperty("windowsChromeDriver");
 		}
 
 		else if (propertiesObj.isMac()) {
-			downloadChromeDriverPath = propertiesObj.getProperty("macChromeDriver");
+			downloadChromeDriverPath = propertiesObj.getSeleniumProperty("macChromeDriver");
 		}
 
 		else if (propertiesObj.isUnix()) {
-			downloadChromeDriverPath = propertiesObj.getProperty("unixChromeDriver");
+			downloadChromeDriverPath = propertiesObj.getSeleniumProperty("unixChromeDriver");
 		}
 		return downloadChromeDriverPath;
 	}
 
 	public String getChromeDriverPath() {
 
-		chromeDriverPath = propertiesObj.getProperty("chromeDrverPath").replace("OS", subFolderBasedOs)
+		chromeDriverPath = propertiesObj.getSeleniumProperty("chromeDrverPath").replace("OS", subFolderBasedOs)
 				.replace("VERSON", chromeDriverVersion);
 
 		if (propertiesObj.isWindows()) {
 			chromeDriverPath = chromeDriverPath + ".exe";
 		}
-		
-		else if (propertiesObj.isMac()){
-			chromeDriverPath = propertiesObj.getProperty("macChromeDrverPath");
+
+		else if (propertiesObj.isMac()) {
+			chromeDriverPath = propertiesObj.getSeleniumProperty("macChromeDrverPath");
 		}
 
 		return chromeDriverPath;
@@ -67,8 +67,8 @@ public class ChromeDriverSetup {
 		try {
 
 			// connectionTimeout, readTimeout = 10 seconds
-			Log.INFO("Downloading chrome driver from: "+fromFile);
-			Log.INFO("Saving chrome driver to: "+toFile);
+			Log.INFO("Downloading chrome driver from: " + fromFile);
+			Log.INFO("Saving chrome driver to: " + toFile);
 			FileUtils.copyURLToFile(new URL(fromFile), new File(toFile).getAbsoluteFile(), 10000, 10000);
 
 		} catch (IOException e) {
@@ -92,8 +92,7 @@ public class ChromeDriverSetup {
 			}
 
 			// get the zip file content
-			ZipInputStream zis = new ZipInputStream(
-					new FileInputStream(toFile));
+			ZipInputStream zis = new ZipInputStream(new FileInputStream(toFile));
 			// get the zipped file list entry
 			ZipEntry ze = zis.getNextEntry();
 

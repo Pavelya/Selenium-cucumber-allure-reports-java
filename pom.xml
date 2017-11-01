@@ -18,7 +18,7 @@
 		<selenium.java.version>3.0.0</selenium.java.version>
 		<selenium.server.version>3.0.0</selenium.server.version>
 		<guava.version>21.0</guava.version>
-		<maven-compiler-plugin></maven-compiler-plugin>
+		<maven-compiler-plugin>3.2</maven-compiler-plugin>
 	</properties>
 
 	<dependencies>

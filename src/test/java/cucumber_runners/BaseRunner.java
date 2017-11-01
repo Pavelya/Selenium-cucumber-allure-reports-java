@@ -24,7 +24,7 @@ import org.junit.runner.RunWith;
 
 }, dryRun = false, monochrome = true,
 
-		tags = "@functional_tests",
+		tags = "@pack",
 
 		features = "src/test/resources/features", glue = { "stepdefs" })
 @RunWith(Cucumber.class)

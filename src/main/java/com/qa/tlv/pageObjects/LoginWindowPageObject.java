@@ -13,7 +13,9 @@ import com.qa.tlv.logger.Log;
  */
 
 public class LoginWindowPageObject implements BaseTest {
+	
 
+	
 	// environment
 	String environment;
 
@@ -34,15 +36,15 @@ public class LoginWindowPageObject implements BaseTest {
 	public LoginWindowPageObject enterUsername() throws IOException {
 
 		Log.INFO("Enter username");
-		inputObj.enterText("id", username, usernameId);
-		screenshotObj.takeScreenShot();
+		browserObj.enterText("id", username, usernameId);
+		browserObj.takeScreenShot();
 		return this;
 	}
 
 	public LoginWindowPageObject enterPassword() throws IOException {
 
 		Log.INFO("Enter password");
-		inputObj.enterText("id", password, "ppassword");
+		browserObj.enterText("id", password, "password");
 		
 		return this;
 	}

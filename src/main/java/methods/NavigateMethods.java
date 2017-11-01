@@ -3,19 +3,28 @@ package methods;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.qa.tlv.environment.BaseTest;
+import com.qa.tlv.environment.DriverManager;
+import com.qa.tlv.environment.DriverManagerFactory;
+import com.qa.tlv.environment.DriverType;
 import com.qa.tlv.logger.Log;
 
 public class NavigateMethods extends SelectElementByType implements BaseTest {
-	// SelectElementByType eleType= new SelectElementByType();
 	private WebElement element = null;
 	private String old_win = null;
 	private String lastWinHandle;
 	private String urlToNavigate = null;
+
+	// initial web driver
+	DriverManager driverManager = DriverManagerFactory.getManager(DriverType.CHROME);
+	WebDriver driver;
+	WebDriverWait wait;
 
 	/**
 	 * Method to open link
@@ -23,14 +32,18 @@ public class NavigateMethods extends SelectElementByType implements BaseTest {
 	 * @param url
 	 *            : String : URL for navigation
 	 */
+
 	public void navigateTo(String url) {
+
+		driver = driverManager.getDriver();
+		wait = new WebDriverWait(driver, 10);
 
 		// get url from feature file
 		if (url.contains("http")) {
 			urlToNavigate = url;
 		}
 
-		// get url value fro prop file
+		// get url value from prop file
 		else {
 			urlToNavigate = propertiesObj.getProperty(url);
 		}
@@ -55,7 +68,9 @@ public class NavigateMethods extends SelectElementByType implements BaseTest {
 
 	/** Method to quite webdriver instance */
 	public void closeDriver() {
-		driver.quit();
+		// driver.quit();
+		driverManager.quitDriver();
+
 	}
 
 	/**
@@ -126,6 +141,7 @@ public class NavigateMethods extends SelectElementByType implements BaseTest {
 
 	/** Method to maximize browser */
 	public void maximizeBrowser() {
+		Log.INFO("Maximize browser");
 		driver.manage().window().maximize();
 	}
 

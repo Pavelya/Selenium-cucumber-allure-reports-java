@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
  * 
  * command line usage:
  * 
- * mvn clean -q -U install -Dtest=DefaultRunner -DfailIfNoTests=false
+ * mvn clean -q -U install -Dtest=BasetRunner -DfailIfNoTests=false
  * -Denv=ENVIRONMENT -Ddevice=DEVICE -Dcucumber.options= "--tags @TAG_NAME"
  * 
  * @author Pavel Yampolsky

@@ -19,6 +19,9 @@
 		<selenium.server.version>3.0.0</selenium.server.version>
 		<guava.version>21.0</guava.version>
 		<maven-compiler-plugin>3.2</maven-compiler-plugin>
+		<maven-surefire-plugin>2.20</maven-surefire-plugin>
+		<allure-maven>2.8</allure-maven>
+		<allure.reportVersion>2.3.1</allure.reportVersion>
 	</properties>
 
 	<dependencies>
@@ -27,7 +30,7 @@
 			<!-- allure report dependencies -->
 			<groupId>io.qameta.allure</groupId>
 			<artifactId>allure-cucumber-jvm</artifactId>
-			<version>2.0-BETA6</version>
+			<version>${allure.cucumber.version}</version>
 		</dependency>
 
 		<!-- Cucumber dependencies -->
@@ -43,7 +46,7 @@
 		<dependency>
 			<groupId>info.cukes</groupId>
 			<artifactId>cucumber-junit</artifactId>
-			<version>1.2.5</version>
+			<version>${cucumber.junit.version}</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -51,7 +54,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.12</version>
+			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -59,19 +62,19 @@
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
-			<version>3.0.0</version>
+			<version>${selenium.java.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-server</artifactId>
-			<version>3.0.0</version>
+			<version>${selenium.server.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>21.0</version>
+			<version>${guava.version}</version>
 		</dependency>
 	</dependencies>
 
@@ -80,7 +83,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.2</version>
+				<version>${maven-compiler-plugin}</version>
 				<configuration>
 					<encoding>UTF-8</encoding>
 					<source>1.7</source>
@@ -102,9 +105,11 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.20</version>
+				<version>${maven-surefire-plugin}</version>
 				<configuration>
 					<argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
+	<!-- <systemPropertyVariables> <allure.results.directory>target/allure-results</allure.results.directory> 
+		<outputDirectory>target/allure-results</outputDirectory> </systemPropertyVariables> -->
 				</configuration>
 				<dependencies>
 					<dependency>
@@ -118,9 +123,9 @@
 			<plugin>
 				<groupId>io.qameta.allure</groupId>
 				<artifactId>allure-maven</artifactId>
-				<version>2.8</version>
+				<version>${allure-maven}</version>
 				<configuration>
-					<reportVersion>2.3.1</reportVersion>
+					<reportVersion>${allure.reportVersion}</reportVersion>
 				</configuration>
 			</plugin>
 

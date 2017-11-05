@@ -1,9 +1,9 @@
 package com.qa.tlv.environment;
 
-import methods.BrowserUtils;
-import methods.MiscMethods;
-import methods.NavigateMethods;
-import methods.PropertiesManagementMethods;
+import com.qa.tlv.methods.BrowserUtils;
+import com.qa.tlv.methods.MiscMethods;
+import com.qa.tlv.methods.NavigateMethods;
+import com.qa.tlv.methods.PropertiesManagementMethods;
 
 public interface BaseTest {
 

@@ -1,4 +1,4 @@
-package methods;
+package com.qa.tlv.methods;
 
 public class TestCaseFailed extends Exception 
 {

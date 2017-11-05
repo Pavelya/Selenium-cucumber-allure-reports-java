@@ -3,7 +3,7 @@ package com.qa.tlv.environment;
 import org.apache.commons.io.FileUtils;
 
 import com.qa.tlv.logger.Log;
-import methods.PropertiesManagementMethods;
+import com.qa.tlv.methods.PropertiesManagementMethods;
 
 import java.io.File;
 import java.io.IOException;

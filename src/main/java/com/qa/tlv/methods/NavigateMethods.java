@@ -1,4 +1,4 @@
-package methods;
+package com.qa.tlv.methods;
 
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;

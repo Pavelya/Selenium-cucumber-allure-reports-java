@@ -1,4 +1,4 @@
-package methods;
+package com.qa.tlv.methods;
 
 import java.io.File;
 import java.io.IOException;

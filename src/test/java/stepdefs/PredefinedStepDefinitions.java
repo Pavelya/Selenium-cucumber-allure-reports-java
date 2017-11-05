@@ -3,8 +3,8 @@ package stepdefs;
 import java.io.IOException;
 
 import com.qa.tlv.environment.BaseTest;
+import com.qa.tlv.methods.TestCaseFailed;
 
-import methods.TestCaseFailed;
 import cucumber.api.java.en.Then;
 
 public class PredefinedStepDefinitions implements BaseTest {

@@ -9,12 +9,11 @@ import cucumber.api.java.en.Then;
 
 public class PredefinedStepDefinitions implements BaseTest {
 
-
 	// Step to navigate to specified URL
 	@Then("^I navigate to (.*)$")
 	public void navigate_to(String link) throws IOException {
 		browserObj.navigateTo(link);
-		
+
 	}
 
 	// Step to navigate forward
@@ -91,8 +90,11 @@ public class PredefinedStepDefinitions implements BaseTest {
 
 	// Step to close the browser
 	@Then("^I close browser$")
-	public void close_browser() {
+	public void close_browser() throws IOException {
+		browserObj.takeScreenShot();
+		browserObj.attachSnapshotToReport();
 		browserObj.closeDriver();
+
 	}
 
 	// zoom in/out page
@@ -382,7 +384,6 @@ public class PredefinedStepDefinitions implements BaseTest {
 	public void select_option_from_radio_btn_group(String option, String by, String type, String accessName)
 			throws Exception {
 		miscmethodObj.validateLocator(type);
-		// miscmethodObj.validateOptionBy(optionBy);
 		browserObj.selectOptionFromRadioButtonGroup(type, option, by, accessName);
 	}
 
@@ -393,8 +394,6 @@ public class PredefinedStepDefinitions implements BaseTest {
 	public void click(String type, String accessName) throws Exception {
 		miscmethodObj.validateLocator(type);
 		browserObj.click(type, accessName);
-		browserObj.takeScreenShot();
-		browserObj.checkPartialTitle("The Internet");
 	}
 
 	// Forcefully click on element

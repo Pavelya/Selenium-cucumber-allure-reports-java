@@ -37,7 +37,6 @@ public class LoginWindowPageObject implements BaseTest {
 
 		Log.INFO("Enter username");
 		browserObj.enterText("id", username, usernameId);
-		browserObj.takeScreenShot();
 		return this;
 	}
 

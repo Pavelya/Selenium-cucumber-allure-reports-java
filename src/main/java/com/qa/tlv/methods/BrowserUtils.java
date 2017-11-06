@@ -2,12 +2,20 @@ package com.qa.tlv.methods;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.junit.ClassRule;
+import org.junit.Rule;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
@@ -26,6 +34,12 @@ import com.qa.tlv.environment.DriverManager;
 import com.qa.tlv.environment.DriverManagerFactory;
 import com.qa.tlv.environment.DriverType;
 import com.qa.tlv.logger.Log;
+
+import cucumber.api.Scenario;
+import cucumber.api.java.After;
+import cucumber.api.java.Before;
+import io.qameta.allure.Allure;
+import io.qameta.allure.Attachment;
 
 public class BrowserUtils extends SelectElementByType implements BaseTest {
 	private WebElement element = null;
@@ -949,26 +963,89 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	// SCREEN SHOTS METHODS
 	///////////////////////
 
-	/** Method to take screen shot and save in ./Screenshots folder */
-	public void takeScreenShot() throws IOException {
+	/** Method to take screen shot and save in ./Screenshots folder 
+	 * @return */
+	public String takeScreenShot() throws IOException {
 
 		Log.INFO("Taking snapshot");
 		File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 
 		DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
 		Calendar cal = Calendar.getInstance();
-		// System.out.println(dateFormat.format(cal.getTime()));
-
-		// String scrFilepath = scrFile.getAbsolutePath();
-		// System.out.println("scrFilepath: " +scrFilepath);
 
 		File currentDirFile = new File("Screenshots");
 		String path = currentDirFile.getAbsolutePath();
-		// System.out.println("path: " +path+"+++");
+		
+		String snapshotFileName = "screenshot" + dateFormat.format(cal.getTime()) + ".png";
+		String pathToSnapshot = path + "/"+snapshotFileName;
 
-		// System.out.println("****\n"+path+"//screenshot"+dateFormat.format(cal.getTime())+".png");
-
-		FileUtils.copyFile(scrFile, new File(path + "//screenshot" + dateFormat.format(cal.getTime()) + ".png"));
+		FileUtils.copyFile(scrFile, new File(pathToSnapshot));
+		
+		return pathToSnapshot;
 
 	}
+
+	/**
+	 * Method to take screen shot to allure report
+	 * 
+	 * @return
+	 */
+	public byte[] embedScreenshotInReport() throws IOException {
+
+		final byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+
+		return screenshot;
+
+	}
+
+	@ClassRule
+	public TestWatcher screenshotOnFailure = new TestWatcher() {
+		@Override
+		protected void failed(Throwable e, Description description) {
+			makeScreenshotOnFailure();
+		}
+
+		@Attachment("Screenshot on failure")
+		public byte[] makeScreenshotOnFailure() {
+			Log.INFO("Taking screenshot");
+			return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+		}
+	};
+
+	@After
+	public void tearDown(Scenario scenario) {
+
+		Log.INFO("Scenario: " + scenario + ", failed taking snapshot");
+
+		if (scenario.isFailed()) {
+			// Take a screenshot if for failed scenario
+			byte[] screenshot = null;
+			try {
+				screenshot = embedScreenshotInReport();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			scenario.embed(screenshot, "image/png");
+		}
+	}
+	
+	public void attachSnapshotToReport(){
+		
+		Log.INFO("Add snapshot to report");
+
+		Path content = null;
+		String pathToSnapshot = null;
+		try {
+			pathToSnapshot = takeScreenShot();
+		} catch (IOException e2) {
+			e2.printStackTrace();
+		}
+		content = Paths.get(pathToSnapshot);
+		try (InputStream is = Files.newInputStream(content)) {
+			Allure.addAttachment(pathToSnapshot, is);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+}
 }

@@ -38,27 +38,36 @@
 			<groupId>info.cukes</groupId>
 			<artifactId>cucumber-java</artifactId>
 			<version>${cucumber.version}</version>
-			<scope>test</scope>
 		</dependency>
 
-
-		<!-- These are the cucumber-junit dependencies -->
 		<dependency>
 			<groupId>info.cukes</groupId>
 			<artifactId>cucumber-junit</artifactId>
 			<version>${cucumber.junit.version}</version>
-			<scope>test</scope>
 		</dependency>
 
-		<!-- These are the junit dependencies -->
+<!-- 		<dependency>
+			<groupId>info.cukes</groupId>
+			<artifactId>cucumber-jvm</artifactId>
+			<version>${cucumber.version}</version>
+			<type>pom</type>
+		</dependency>
+
+		<dependency>
+			<groupId>info.cukes</groupId>
+			<artifactId>cucumber-core</artifactId>
+			<version>${cucumber.version}</version>
+		</dependency> -->
+
+		<!-- Junit dependencies -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>${junit.version}</version>
-			<scope>test</scope>
+			<!-- <scope>test</scope> -->
 		</dependency>
 
-		<!-- These are the selenium-webdriver dependencies -->
+		<!-- Selenium-webdriver dependencies -->
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
@@ -108,8 +117,8 @@
 				<version>${maven-surefire-plugin}</version>
 				<configuration>
 					<argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
-	<!-- <systemPropertyVariables> <allure.results.directory>target/allure-results</allure.results.directory> 
-		<outputDirectory>target/allure-results</outputDirectory> </systemPropertyVariables> -->
+					<!-- <systemPropertyVariables> <allure.results.directory>target/allure-results</allure.results.directory> 
+						<outputDirectory>target/allure-results</outputDirectory> </systemPropertyVariables> -->
 				</configuration>
 				<dependencies>
 					<dependency>

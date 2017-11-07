@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.qa.tlv.environment.BaseTest;
 import com.qa.tlv.logger.Log;
+import com.qa.tlv.methods.BrowserUtils;
 
 /**
  * Template Base class.
@@ -13,6 +14,8 @@ import com.qa.tlv.logger.Log;
  */
 
 public class LoginWindowPageObject implements BaseTest {
+	
+	BrowserUtils browser = new BrowserUtils();
 	
 
 	
@@ -47,5 +50,5 @@ public class LoginWindowPageObject implements BaseTest {
 		
 		return this;
 	}
-
+	
 }

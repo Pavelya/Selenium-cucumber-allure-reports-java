@@ -13,7 +13,6 @@ import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.ClassRule;
-import org.junit.Rule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 import org.openqa.selenium.By;
@@ -37,7 +36,6 @@ import com.qa.tlv.logger.Log;
 
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
-import cucumber.api.java.Before;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Attachment;
 
@@ -963,8 +961,18 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	// SCREEN SHOTS METHODS
 	///////////////////////
 
-	/** Method to take screen shot and save in ./Screenshots folder 
-	 * @return */
+	public String getSnapshotFolderPath() {
+		File currentDirFile = new File("Screenshots");
+		String path = currentDirFile.getAbsolutePath();
+
+		return path;
+	}
+
+	/**
+	 * Method to take screen shot and save in ./Screenshots folder
+	 * 
+	 * @return
+	 */
 	public String takeScreenShot() throws IOException {
 
 		Log.INFO("Taking snapshot");
@@ -973,15 +981,12 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 		DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
 		Calendar cal = Calendar.getInstance();
 
-		File currentDirFile = new File("Screenshots");
-		String path = currentDirFile.getAbsolutePath();
-		
 		String snapshotFileName = "screenshot" + dateFormat.format(cal.getTime()) + ".png";
-		String pathToSnapshot = path + "/"+snapshotFileName;
+		String pathToSnapshot = getSnapshotFolderPath() + "/" + snapshotFileName;
 
 		FileUtils.copyFile(scrFile, new File(pathToSnapshot));
-		
-		return pathToSnapshot;
+
+		return snapshotFileName;
 
 	}
 
@@ -1029,23 +1034,24 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 			scenario.embed(screenshot, "image/png");
 		}
 	}
-	
-	public void attachSnapshotToReport(){
-		
+
+	public void attachSnapshotToReport() {
+
 		Log.INFO("Add snapshot to report");
 
 		Path content = null;
-		String pathToSnapshot = null;
+		String snapshotFileName = null;
 		try {
-			pathToSnapshot = takeScreenShot();
+			snapshotFileName = takeScreenShot();
 		} catch (IOException e2) {
 			e2.printStackTrace();
 		}
-		content = Paths.get(pathToSnapshot);
+		content = Paths.get(getSnapshotFolderPath() + "/" + snapshotFileName);
 		try (InputStream is = Files.newInputStream(content)) {
-			Allure.addAttachment(pathToSnapshot, is);
+			Allure.addAttachment(snapshotFileName, is);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-}
+	}
+
 }

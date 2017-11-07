@@ -7,4 +7,4 @@ Scenario: Login with valid credential
 	Given I navigate to https://williamhill.com
 	And I navigate to https:/sports.williamhill.com
 	And I wait for 5 sec
-	Then I close browser
+	#Then I close browser

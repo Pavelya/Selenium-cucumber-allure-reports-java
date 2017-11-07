@@ -91,8 +91,6 @@ public class PredefinedStepDefinitions implements BaseTest {
 	// Step to close the browser
 	@Then("^I close browser$")
 	public void close_browser() throws IOException {
-		browserObj.takeScreenShot();
-		browserObj.attachSnapshotToReport();
 		browserObj.closeDriver();
 
 	}

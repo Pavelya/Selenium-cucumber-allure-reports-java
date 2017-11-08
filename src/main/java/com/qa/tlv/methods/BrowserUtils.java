@@ -290,6 +290,17 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	///////////////////
 
 	/**
+	 * Method to get page URL
+	 * 
+	 * @return String
+	 */
+	public String getPageUrl() {
+		String pageUrl = driver.getCurrentUrl();
+		Log.INFO("Page URL: " + pageUrl);
+		return pageUrl;
+	}
+	
+	/**
 	 * Method to get page title
 	 * 
 	 * @return String
@@ -903,6 +914,18 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 			driver.switchTo().alert().accept();
 		else
 			driver.switchTo().alert().dismiss();
+	}
+
+	////////////////////////
+	// DELETE COOKIES METHODS
+	////////////////////////
+	/**
+	 * Method to delete cookie
+	 */
+	public void deleteCookies() {
+
+		driver.manage().deleteAllCookies();
+
 	}
 
 	//////////////////////////////

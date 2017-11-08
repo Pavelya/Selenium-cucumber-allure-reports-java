@@ -2,6 +2,8 @@ package stepdefs;
 
 import java.io.IOException;
 
+import org.junit.Assert;
+
 import com.qa.tlv.environment.BaseTest;
 import com.qa.tlv.logger.Log;
 
@@ -32,4 +34,5 @@ public class Hooks implements BaseTest {
 		Log.INFO("Scenario: " + scenario.getName() + " started");
 
 	}
+
 }

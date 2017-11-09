@@ -1,26 +1,72 @@
-AutomationBase
-=================
+# Automation base
+
+Automation Testing Using Selenium, BDD and Allure reports
+
+Automation base is a behavior driven development (BDD) approach to write automation test script to test Web.  
+The framework supports reporting with Allure reports
+
+Getting Started
+-------------
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+Prerequisites
+--------------
+Maven  
+Git
+
+Installing
+-------------
+Clone the repo to get a working project
 
 
+Running the tests - command line mode
+-------------------
+cd to project path  
 
-##DOCUMENTATION
+mvn clean test   
+"-Dbrowser=chrome"  
+"-Denv=pp1"  
+"-Dtest=BaseRunner"  
+"-Dcucumber.options=--tags @functional_tests"  
+"-Dcucumber.options="--plugin io.qameta.allure.cucumberjvm.AllureCucumberJvm"
+
+Running the tests - from IDE  
+-------------------
+Run [src/test/java/cucumber_runners/BaseRunner.java](src/test/java/cucumber_runners/BaseRunner.java)  as maven test
+
+
+Documentation
+-------------
 * [Installation](doc/installation.md)
 * [Run tests](doc/run_tests.md)
 * [Pass external parameters to test](doc/working_with_parameters.md)
 * [Use allure reports](doc/allure_reports.md)
+* [Use predefined steps](doc/canned_steps.md)
 
+Built With
+-------------
+* [Selenium](http://www.seleniumhq.org/) - The web framework to automate browsers
+* [Maven](https://maven.apache.org/) - Dependency Management
+* [Cucumber](https://cucumber.io/) - Behavior Driven Development (BDD) library 
+* [Allure reports](http://allure.qatools.ru/) - Reporting 
 
-## HOW TO RUN TESTS
-mvn clean test  "-Dbrowser=chrome" "-Denv=pp1" "-Dtest=BaseRunner" "-Dcucumber.options=--tags @functional_tests" -Dcucumber.options="--plugin io.qameta.allure.cucumberjvm.AllureCucumberJvm"
+Contributing
+-------------
+Please read [CONTRIBUTING.md](doc/CONTRIBUTING.md) for details of the process for submitting pull requests.
 
-## CONTACTS
-Pavel Yampolsky M: +972 (54) 3933528 S: pavel.yampolsky.willhill E: 2pavelya@gmail.com
+Versioning
+-------------
+[SemVer](http://semver.org/) is in use for versioning.   
+For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
 
-##LICENSE
-(The MIT License)
+Authors
+-------------
+**Pavel Yampolsky**  - Skype: pavel.yampolsky.willhill Email: 2pavelya@gmail.com
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the 'Software'), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+License
+-------------
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+Acknowledgments
+-------------
+Forked from: https://github.com/VaishnaviGunwante/selenium-cucumber-java

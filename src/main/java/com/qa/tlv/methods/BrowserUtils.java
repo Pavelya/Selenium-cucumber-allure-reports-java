@@ -301,6 +301,17 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	}
 	
 	/**
+	 * Method to get page Source
+	 * 
+	 * @return String
+	 */
+	public String getPageSource() {
+		String pageSource = driver.getPageSource();
+		Log.INFO("Page source: " + pageSource);
+		return pageSource;
+	}
+	
+	/**
 	 * Method to get page title
 	 * 
 	 * @return String

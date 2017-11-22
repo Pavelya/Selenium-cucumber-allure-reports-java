@@ -1,5 +1,6 @@
 @functional_tests_login_to_casino
 @pack
+@Q
 Feature: William hill login 
 	As a user I should able to login to casino
  

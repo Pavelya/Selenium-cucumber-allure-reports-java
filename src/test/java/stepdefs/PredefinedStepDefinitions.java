@@ -164,6 +164,11 @@ public class PredefinedStepDefinitions implements BaseTest {
 		// System.out.println("Present :" + present.isEmpty());
 		browserObj.checkTitle(title);
 	}
+	
+	@Then("^I should see page source")
+	public void getPageSource() throws TestCaseFailed {
+		browserObj.getPageSource();
+	}
 
 	// step to check element partial text
 	@Then("^I should\\s*((?:not)?)\\s+see page title having partial text as \"(.*?)\"$")

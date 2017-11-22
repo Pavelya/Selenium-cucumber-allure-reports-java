@@ -299,7 +299,7 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 		Log.INFO("Page URL: " + pageUrl);
 		return pageUrl;
 	}
-	
+
 	/**
 	 * Method to get page Source
 	 * 
@@ -310,7 +310,21 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 		Log.INFO("Page source: " + pageSource);
 		return pageSource;
 	}
-	
+
+	/**
+	 * Method to get page URLs
+	 * 
+	 * @return String
+	 */
+//	public String getPageURLs(String pageSource) {
+//
+//		String pageSource = getPageSource();
+//		return pageSource;
+//		// String pageSource = driver.getPageSource();
+//		// Log.INFO("Page source: " + pageSource);
+//		// return pageSource;
+//	}
+
 	/**
 	 * Method to get page title
 	 * 
@@ -1087,5 +1101,7 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 			e.printStackTrace();
 		}
 	}
+	
+	
 
 }

@@ -5,8 +5,10 @@ import org.apache.commons.io.FileUtils;
 import com.qa.tlv.logger.Log;
 import com.qa.tlv.methods.PropertiesManagementMethods;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -53,9 +55,13 @@ public class ChromeDriverSetup {
 			chromeDriverPath = chromeDriverPath + ".exe";
 		}
 
-		else if (propertiesObj.isMac()) {
-			chromeDriverPath = propertiesObj.getSeleniumProperty("macChromeDrverPath");
-		}
+		// get fixed value of webdriver path, if download fnctionality is
+		// not in use
+
+		// else if (propertiesObj.isMac()) {
+		// chromeDriverPath =
+		// propertiesObj.getSeleniumProperty("macChromeDrverPath");
+		// }
 
 		return chromeDriverPath;
 	}
@@ -67,6 +73,10 @@ public class ChromeDriverSetup {
 		try {
 
 			// connectionTimeout, readTimeout = 10 seconds
+
+			// download will take place even is the .zip is exits to cover
+			// change in version case
+
 			Log.INFO("Downloading chrome driver from: " + fromFile);
 			Log.INFO("Saving chrome driver to: " + toFile);
 			FileUtils.copyURLToFile(new URL(fromFile), new File(toFile).getAbsoluteFile(), 10000, 10000);
@@ -78,6 +88,9 @@ public class ChromeDriverSetup {
 	}
 
 	public void unZipIt() {
+
+		// resource:
+		// https://www.mkyong.com/java/how-to-decompress-files-from-a-zip-file/
 
 		byte[] buffer = new byte[1024];
 
@@ -126,5 +139,35 @@ public class ChromeDriverSetup {
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
+
 	}
+
+	public String makeWebDriverExecutable() {
+
+		String pathToChromeDriverPath = downloadFolderToUnzip + "/" + subFolderBasedOs + "/" + chromeDriverVersion
+				+ "/chromedriver";
+
+		Log.INFO("Run chmod 777 command for : " + pathToChromeDriverPath);
+
+		StringBuffer output = new StringBuffer();
+
+		Process p;
+		try {
+			p = Runtime.getRuntime().exec("chmod 777 " + pathToChromeDriverPath);
+			p.waitFor();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+			String line = "";
+			while ((line = reader.readLine()) != null) {
+				output.append(line + "\n");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return output.toString();
+
+	}
+
 }

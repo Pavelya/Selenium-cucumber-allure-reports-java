@@ -31,7 +31,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import com.qa.tlv.environment.BaseTest;
 import com.qa.tlv.environment.DriverManager;
 import com.qa.tlv.environment.DriverManagerFactory;
-import com.qa.tlv.environment.DriverType;
 import com.qa.tlv.logger.Log;
 
 import cucumber.api.Scenario;

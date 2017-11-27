@@ -8,15 +8,15 @@ import org.openqa.selenium.firefox.GeckoDriverService;
 public class FirefoxDriverManager extends DriverManager {
 
 	private GeckoDriverService ffService;
+	ChromeDriverSetup chromeDriverSetup = new ChromeDriverSetup();
 
 	@Override
 	public void startService() {
 		if (null == ffService) {
 			try {
 				ffService = new GeckoDriverService.Builder()
-						.usingDriverExecutable(new File(
-								"/Users/pavely/eclipse/java-mars/workspace/AutomationBase/src/main/resources/selenium/firefoxdriver/geckodriver"))
-						.usingAnyFreePort().build();
+						.usingDriverExecutable(new File(chromeDriverSetup.getfirefoxDriverPath())).usingAnyFreePort()
+						.build();
 				ffService.start();
 			} catch (Exception e) {
 				e.printStackTrace();

@@ -1,5 +1,6 @@
  
 #General info  
+
 Default browser to use in test is chrome. If no browser will be selected, chrome will be picked up. 
 TBD: add support for Safari
 

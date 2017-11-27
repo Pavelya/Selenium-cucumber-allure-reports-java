@@ -46,11 +46,21 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	private String urlToNavigate = null;
 	private WebElement dropdown = null;
 	private Select selectList = null;
-
-	// initial web driver
-	DriverManager driverManager = DriverManagerFactory.getManager(DriverType.CHROME);
+	
+	// initial web driver hardcoded
+	//DriverManager driverManager = DriverManagerFactory.getManager(DriverType.FIREFOX);
+	
+	//initial web driver by user selection 
+	DriverManager driverManager = DriverManagerFactory.getManagerByUserSelection();
+	
+	//initial web driver according to user selection
+	
 	WebDriver driver;
 	WebDriverWait wait;
+	
+	
+	
+	
 
 	////////////////////
 	// NAVIGATION METHODS
@@ -64,7 +74,7 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	 */
 
 	public void navigateTo(String url) {
-
+		
 		driver = driverManager.getDriver();
 		wait = new WebDriverWait(driver, 10);
 

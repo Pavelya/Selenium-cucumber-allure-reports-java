@@ -29,6 +29,7 @@ public class ChromeDriverSetup {
 	static String subFolderBasedOs = System.getProperty("os.name").toLowerCase().replace(" ", "_");
 
 	static String chromeDriverPath;
+	static String firefoxDriverPath;
 
 	public static String getdownloadChromeDriverPath() {
 
@@ -65,6 +66,18 @@ public class ChromeDriverSetup {
 
 		return chromeDriverPath;
 	}
+	
+	public String getfirefoxDriverPath() {
+
+		firefoxDriverPath = propertiesObj.getSeleniumProperty("firexoxDrverPath");
+
+		if (propertiesObj.isWindows()) {
+			firefoxDriverPath = firefoxDriverPath + ".exe";
+		}
+
+		return firefoxDriverPath;
+	}
+
 
 	public void downloadChromeDriver() {
 

@@ -1,30 +1,65 @@
 package com.qa.tlv.environment;
 
-public class DriverManagerFactory {
-	
-	static ChromeDriverSetup chromeSetup = new ChromeDriverSetup();
+import com.qa.tlv.methods.InitSystemProperties;
 
-    public static DriverManager getManager(DriverType type) {
-    	
+public class DriverManagerFactory {
+
+	static ChromeDriverSetup chromeSetup = new ChromeDriverSetup();
+	static InitSystemProperties initSystemProperties = new InitSystemProperties();
+
+	static // get browser type from user selection
+	String browserName = System.getProperty("browser");
+
+	public static DriverManager getManager(DriverType type) {
+
+		initChrome();
+
+		DriverManager driverManager;
+
+		switch (type) {
+		case CHROME:
+			driverManager = new ChromeDriverManager();
+			break;
+		case FIREFOX:
+			driverManager = new FirefoxDriverManager();
+			break;
+		default:
+			driverManager = new ChromeDriverManager();
+			break;
+		}
+		return driverManager;
+
+	}
+
+	public static DriverManager getManagerByUserSelection() {
+
+		initChrome();
+
+		DriverManager driverManager;
+
+		switch (browserName) {
+		case "chrome":
+			driverManager = new ChromeDriverManager();
+			break;
+		case "firefox":
+			driverManager = new FirefoxDriverManager();
+			break;
+		default:
+			driverManager = new ChromeDriverManager();
+			break;
+		}
+		return driverManager;
+
+	}
+
+	public static void initChrome() {
 		// download and setup chrome driver as default
 		chromeSetup.downloadChromeDriver();
 		chromeSetup.unZipIt();
 		chromeSetup.makeWebDriverExecutable();
 
-        DriverManager driverManager;
+		// set system vars for webdriver
+		initSystemProperties.setWebdriverSystemProperty();
+	}
 
-        switch (type) {
-            case CHROME:
-                driverManager = new ChromeDriverManager();
-                break;
-            case FIREFOX:
-                driverManager = new ChromeDriverManager();
-                break;
-            default:
-                driverManager = new ChromeDriverManager();
-                break;
-        }
-        return driverManager;
-
-    }
 }

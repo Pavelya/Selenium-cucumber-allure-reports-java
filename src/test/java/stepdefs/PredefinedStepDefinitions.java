@@ -19,13 +19,13 @@ public class PredefinedStepDefinitions implements BaseTest {
 	// Step to navigate forward
 	@Then("^I navigate forward")
 	public void navigate_forward() {
-		navigationObj.navigate("forward");
+		browserObj.navigate("forward");
 	}
 
 	// Step to navigate backward
 	@Then("^I navigate back")
 	public void navigate_back() {
-		navigationObj.navigate("back");
+		browserObj.navigate("back");
 	}
 
 	// // steps to refresh page
@@ -39,25 +39,25 @@ public class PredefinedStepDefinitions implements BaseTest {
 	// Switch to new window
 	@Then("^I switch to new window$")
 	public void switch_to_new_window() {
-		navigationObj.switchToNewWindow();
+		browserObj.switchToNewWindow();
 	}
 
 	// Switch to old window
 	@Then("^I switch to previous window$")
 	public void switch_to_old_window() {
-		navigationObj.switchToOldWindow();
+		browserObj.switchToOldWindow();
 	}
 
 	// Switch to new window by window title
 	@Then("^I switch to window having title \"(.*?)\"$")
 	public void switch_to_window_by_title(String windowTitle) throws Exception {
-		navigationObj.switchToWindowByTitle(windowTitle);
+		browserObj.switchToWindowByTitle(windowTitle);
 	}
 
 	// Close new window
 	@Then("^I close new window$")
 	public void close_new_window() {
-		navigationObj.closeNewWindow();
+		browserObj.closeNewWindow();
 	}
 
 	// Switch between frame
@@ -65,13 +65,13 @@ public class PredefinedStepDefinitions implements BaseTest {
 	// Step to switch to frame by web element
 	@Then("^I switch to frame having (.+) \"(.*?)\"$")
 	public void switch_frame_by_element(String method, String value) {
-		navigationObj.switchFrame(method, value);
+		browserObj.switchFrame(method, value);
 	}
 
 	// step to switch to main content
 	@Then("^I switch to main content$")
 	public void switch_to_default_content() {
-		navigationObj.switchToDefaultContent();
+		browserObj.switchToDefaultContent();
 	}
 
 	// To interact with browser
@@ -79,7 +79,7 @@ public class PredefinedStepDefinitions implements BaseTest {
 	// step to resize browser
 	@Then("^I resize browser window size to width (\\d+) and height (\\d+)$")
 	public void resize_browser(int width, int heigth) {
-		navigationObj.resizeBrowser(width, heigth);
+		browserObj.resizeBrowser(width, heigth);
 	}
 
 	// step to maximize browser
@@ -100,13 +100,13 @@ public class PredefinedStepDefinitions implements BaseTest {
 	// steps to zoom in page
 	@Then("^I zoom in page$")
 	public void zoom_in() {
-		navigationObj.zoomInOut("ADD");
+		browserObj.zoomInOut("ADD");
 	}
 
 	// steps to zoom out page
 	@Then("^I zoom out page$")
 	public void zoom_out() {
-		navigationObj.zoomInOut("SUBTRACT");
+		browserObj.zoomInOut("SUBTRACT");
 	}
 
 	// zoom out webpage till necessary element displays
@@ -115,21 +115,21 @@ public class PredefinedStepDefinitions implements BaseTest {
 	@Then("^I zoom out page till I see element having (.+) \"(.*?)\"$")
 	public void zoom_till_element_display(String type, String accessName) throws Exception {
 		miscmethodObj.validateLocator(type);
-		navigationObj.zoomInOutTillElementDisplay(type, "substract", accessName);
+		browserObj.zoomInOutTillElementDisplay(type, "substract", accessName);
 	}
 
 	// reset webpage view use
 
 	@Then("^I reset page view$")
 	public void reset_page_zoom() {
-		navigationObj.zoomInOut("reset");
+		browserObj.zoomInOut("reset");
 	}
 
 	// scroll webpage
 
 	@Then("^I scroll to (top|end) of page$")
 	public void scroll_page(String to) throws Exception {
-		navigationObj.scrollPage(to);
+		browserObj.scrollPage(to);
 	}
 
 	// scroll webpage to specific element
@@ -137,7 +137,7 @@ public class PredefinedStepDefinitions implements BaseTest {
 	@Then("^I scroll to element having (.+) \"(.*?)\"$")
 	public void scroll_to_element(String type, String accessName) throws Exception {
 		miscmethodObj.validateLocator(type);
-		navigationObj.scrollToElement(type, accessName);
+		browserObj.scrollToElement(type, accessName);
 	}
 
 	// hover over element
@@ -146,7 +146,7 @@ public class PredefinedStepDefinitions implements BaseTest {
 	@Then("^I hover over element having (.+) \"(.*?)\"$")
 	public void hover_over_element(String type, String accessName) throws Exception {
 		miscmethodObj.validateLocator(type);
-		navigationObj.hoverOverElement(type, accessName);
+		browserObj.hoverOverElement(type, accessName);
 	}
 
 	// Assertion steps

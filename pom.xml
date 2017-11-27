@@ -15,8 +15,8 @@
 		<allure.cucumber.version>2.0-BETA6</allure.cucumber.version>
 		<cucumber.junit.version>1.2.5</cucumber.junit.version>
 		<junit.version>4.12</junit.version>
-		<selenium.java.version>3.0.0</selenium.java.version>
-		<selenium.server.version>3.0.0</selenium.server.version>
+		<selenium.java.version>3.4.0</selenium.java.version>
+		<selenium.server.version>3.4.0</selenium.server.version>
 		<guava.version>21.0</guava.version>
 		<maven-compiler-plugin>3.2</maven-compiler-plugin>
 		<maven-surefire-plugin>2.20</maven-surefire-plugin>

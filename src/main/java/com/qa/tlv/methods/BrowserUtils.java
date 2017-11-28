@@ -111,6 +111,12 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 		driverManager.quitDriver();
 
 	}
+	
+	/** Method to refresh browser */
+	public void refreshDriver() {
+		driver.navigate().refresh();
+
+	}
 
 	/**
 	 * Method to return key by OS wise

@@ -1,6 +1,8 @@
-# Canned Steps
+# Predefined Steps
+######Forked from: https://github.com/VaishnaviGunwante/selenium-cucumber-java
 
-selenium-cucumber-java comes with the following set of predefined steps.
+selenium-cucumber-allure-reports-java comes with the following set of predefined steps.
+
 
 ## Navigation Steps
 
@@ -23,9 +25,6 @@ To switch between frames use following steps :
 
 	Then I switch to frame having index \"(.*?)
 	Then I switch to frame having id \"(.*?)
-	Then I switch to frame having name \"(.*?)
-	Then I switch to frame having xpath \"(.*?)
-	Then I switch to frame having css \"(.*?)
 	Then I switch to main content
 	
 To interact with browser use following steps :    

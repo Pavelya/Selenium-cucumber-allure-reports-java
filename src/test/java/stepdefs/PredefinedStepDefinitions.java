@@ -28,11 +28,11 @@ public class PredefinedStepDefinitions implements BaseTest {
 		browserObj.navigate("back");
 	}
 
-	// // steps to refresh page
-	// @Then("^I refresh page$")
-	// public void refresh_page() {
-	// driver.navigate().refresh();
-	// }
+	// steps to refresh page
+	@Then("^I refresh page$")
+	public void refresh_page() {
+		browserObj.refreshDriver();
+	}
 
 	// Switch between windows
 
@@ -164,7 +164,7 @@ public class PredefinedStepDefinitions implements BaseTest {
 		// System.out.println("Present :" + present.isEmpty());
 		browserObj.checkTitle(title);
 	}
-	
+
 	@Then("^I should see page source")
 	public void getPageSource() throws TestCaseFailed {
 		browserObj.getPageSource();
@@ -336,16 +336,6 @@ public class PredefinedStepDefinitions implements BaseTest {
 		miscmethodObj.validateLocator(type);
 		browserObj.deselectOptionFromDropdown(type, "selectByIndex", option, accessName);
 	}
-
-	// step to select option from mutliselect dropdown list
-	/*
-	 * @Then(
-	 * "^I select all options from multiselect dropdown having (.+) \"(.*?)\"$")
-	 * public void select_all_option_from_multiselect_dropdown(String
-	 * type,String accessName) throws Exception {
-	 * miscmethod.validateLocator(type); //browserObj.
-	 * //select_all_option_from_multiselect_dropdown(type, access_name) }
-	 */
 
 	// step to unselect option from mutliselect dropdown list
 	@Then("^I deselect all options from multiselect dropdown having (.+) \"(.*?)\"$")

@@ -1,5 +1,5 @@
 @functional_tests_test 
-@pack_sel
+@pack11
 Feature: Test page login 
 	As a user I should able to login to selenium test page
  

@@ -1,5 +1,5 @@
 @functional_tests_login_to_casino 
-@pack1
+@pack11
 Feature: Casino login 
 	As a user I should able to login to casino
  

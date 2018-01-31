@@ -2,7 +2,11 @@ package cucumber_runners;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
+
+import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
+
+import com.qa.tlv.utilities.reports.AllureReportConfigurationSetup;
 
 /**
  * Runner to execute casino tests
@@ -29,4 +33,12 @@ import org.junit.runner.RunWith;
 		features = "src/test/resources/features", glue = { "stepdefs" })
 @RunWith(Cucumber.class)
 public class BaseRunner {
+
+
+@BeforeClass()
+public static void runTomcat() throws Exception {
+
+	// prepare reports folder
+	AllureReportConfigurationSetup.prepareAllureResultsFolder();
+}
 }

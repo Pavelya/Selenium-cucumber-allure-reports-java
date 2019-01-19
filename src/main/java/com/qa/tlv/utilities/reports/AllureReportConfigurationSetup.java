@@ -43,8 +43,6 @@ public class AllureReportConfigurationSetup {
 
 		// step 3. create and populate allure report properties file
 		writeToAllureConfigFile("ENVIRONMENT", "");
-		writeToAllureConfigFile("MARS_ADDRESS", "");
-		writeToAllureConfigFile("MARS_AUTOMATION_PATH", "");
 	}
 
 	// UTILS
@@ -78,7 +76,6 @@ public class AllureReportConfigurationSetup {
 		}
 	}
 
-	// source: https://www.mkyong.com/java/how-to-delete-directory-in-java/
 	public static void deleteAllureResultsFolder(File allureResultsFolder) throws IOException {
 
 		if (allureResultsFolder.isDirectory()) {

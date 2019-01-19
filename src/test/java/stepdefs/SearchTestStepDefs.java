@@ -13,8 +13,8 @@ public class SearchTestStepDefs {
         search.verifySearchDisplayed();
     }
 
-    @And("^user enters the search text$")
-    public void enterSearchText() throws Throwable {
-        search.enterSearchText();
+    @And("^user enters (.*) in search form$")
+    public void enterSearchText(String searchText) throws Throwable {
+        search.enterSearchText(searchText);
     }
 }

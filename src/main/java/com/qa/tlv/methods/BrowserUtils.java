@@ -740,7 +740,7 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	///////////////
 
 	/**
-	 * Method to enter text into text field
+	 * Method to enter text into text field, using send keys
 	 * 
 	 * @param accessType
 	 *            : String : Locator type (id, name, class, xpath, css)
@@ -749,10 +749,30 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	 * @param accessName
 	 *            : String : Locator value
 	 */
-	public void enterText(String accessType, String text, String accessName) {
+	public void enterTextBySendKeys(String accessType, String text, String accessName) {
 		wait.until(ExpectedConditions.presenceOfElementLocated(getelementbytype(accessType, accessName)));
 		driver.findElement(getelementbytype(accessType, accessName)).sendKeys(text);
 	}
+	
+    /**
+     * Method to enter text into text field, using actions
+     * 
+     * @param accessType
+     *            : String : Locator type (id, name, class, xpath, css)
+     * @param text
+     *            : String : Text value to enter in field
+     * @param accessName
+     *            : String : Locator value
+     */
+
+    public void enterTextByActions(String accessType, String text, String accessName) {
+        wait.until(ExpectedConditions.presenceOfElementLocated(getelementbytype(accessType, accessName)));
+        Actions actions = new Actions(driver);
+        actions.moveToElement(element);
+        actions.click();
+        actions.sendKeys(text);
+        actions.build().perform();
+    }
 
 	/**
 	 * Method to clear text of text field

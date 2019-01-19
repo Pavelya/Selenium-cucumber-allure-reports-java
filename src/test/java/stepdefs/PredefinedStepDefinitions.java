@@ -285,7 +285,7 @@ public class PredefinedStepDefinitions implements BaseTest {
 	@Then("^user enters \"([^\"]*)\" into input field having (.+) \"([^\"]*)\"$")
 	public void enter_text(String text, String type, String accessName) throws Exception {
 		miscmethodObj.validateLocator(type);
-		browserObj.enterText(type, text, accessName);
+		browserObj.enterTextByActions(type, text, accessName);
 	}
 
 	// clear input field steps
@@ -457,13 +457,5 @@ public class PredefinedStepDefinitions implements BaseTest {
 	@Then("^user dismiss alert$")
 	public void dismiss_alert() {
 		browserObj.handleAlert("dismiss");
-	}
-
-	// Configuration steps
-
-	// step to print configuration
-	@Then("^I print configuration$")
-	public void print_config() {
-		browserObj.printDesktopConfiguration();
 	}
 }

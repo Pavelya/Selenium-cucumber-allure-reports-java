@@ -6,4 +6,4 @@ Feature: Search
 Scenario: Search 
 	Given  user opens base lobby
 	Then my search is displayed
-	And user enters the search text
+	And user enters ABC in search form

@@ -21,8 +21,9 @@ public class SearchPageObject implements BaseTest {
         browserObj.checkElementPresence("css", searchFormCSS);
     }
 
-    public void enterSearchText() throws TestCaseFailed {
-        Log.INFO("Enter search text");
-        browserObj.enterText("css", "AAA", searchFormCSS);
+    public void enterSearchText(String searchText) throws TestCaseFailed {
+        Log.INFO("Enter search text: "+searchText);
+        browserObj.click("css", searchFormCSS);
+        browserObj.enterTextByActions("css", searchText, searchFormCSS);
     }
 }

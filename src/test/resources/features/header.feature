@@ -1,5 +1,5 @@
 @header 
-@daily_regression 
+@daily_regression
 Feature: Header 
 	As a user I should able to see header
  

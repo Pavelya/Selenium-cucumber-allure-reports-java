@@ -28,13 +28,10 @@ public class DriverManagerFactory {
 			break;
 		}
 		return driverManager;
-
 	}
 
 	public static DriverManager getManagerByUserSelection() {
-
 		initChrome();
-
 		DriverManager driverManager;
 
 		switch (browserName) {
@@ -49,7 +46,6 @@ public class DriverManagerFactory {
 			break;
 		}
 		return driverManager;
-
 	}
 
 	public static void initChrome() {
@@ -61,5 +57,4 @@ public class DriverManagerFactory {
 		// set system vars for webdriver
 		initSystemProperties.setWebdriverSystemProperty();
 	}
-
 }

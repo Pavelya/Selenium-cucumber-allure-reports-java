@@ -8,9 +8,7 @@ public class InitSystemProperties implements BaseTest {
 	ChromeDriverSetup chromeDriverSetup = new ChromeDriverSetup();
 
 	public void setWebdriverSystemProperty() {
-
 		System.setProperty("webdriver.chrome.driver", chromeDriverSetup.getChromeDriverPath());
 		System.setProperty("webdriver.gecko.driver", chromeDriverSetup.getfirefoxDriverPath());
 	}
-
 }

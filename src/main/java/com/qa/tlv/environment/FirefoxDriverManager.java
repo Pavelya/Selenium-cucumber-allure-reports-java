@@ -34,5 +34,4 @@ public class FirefoxDriverManager extends DriverManager {
 	public void createDriver() {
 		driver = new FirefoxDriver();
 	}
-
 }

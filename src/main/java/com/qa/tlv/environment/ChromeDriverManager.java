@@ -43,11 +43,11 @@ public class ChromeDriverManager extends DriverManager {
 		DesiredCapabilities capabilities = DesiredCapabilities.chrome();
 
 		Map<String, String> mobileEmulation = new HashMap<>();
-		mobileEmulation.put("deviceName", "Nexus 5");
+		mobileEmulation.put("deviceName", "iPhone X");
 
 		ChromeOptions options = new ChromeOptions();
 
-		if (getPlatform() == true) {
+		if (getPlatform()) {
 			Log.INFO("Create mobile browser");
 			options.setExperimentalOption("mobileEmulation", mobileEmulation);
 		}
@@ -57,18 +57,13 @@ public class ChromeDriverManager extends DriverManager {
 		driver = new ChromeDriver(chService, capabilities);
 	}
 
-	public boolean getPlatform() {
-
-		boolean ifMobilePlatform = false;
-		if (System.getProperty("browser").contains("mobile")) {
-			ifMobilePlatform = true;
-		}
-
-		else {
-			ifMobilePlatform = false;
-		}
-
-		return ifMobilePlatform;
-	}
-
+    public boolean getPlatform() {
+        boolean ifMobilePlatform = false;
+        if (System.getProperty("browser").contains("mobile")) {
+            ifMobilePlatform = true;
+        } else {
+            ifMobilePlatform = false;
+        }
+        return ifMobilePlatform;
+    }
 }

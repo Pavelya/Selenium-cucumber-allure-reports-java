@@ -21,6 +21,7 @@ public class AllureReportConfigurationSetup {
 	static String allureReportResultsFolder = "allure-results";
 	static String allureReportPropertiesFileName = "environment.properties";
 	static String allureReportPropertiesFilePath = allureReportResultsFolder + "/" + allureReportPropertiesFileName;
+	static String allureReportScreenshotsFolder = "Screenshots";
 
 	static File allureReportPropertiesFile = new File(allureReportPropertiesFilePath);
 
@@ -40,11 +41,24 @@ public class AllureReportConfigurationSetup {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+        // step 3. delete allure screenshots folder
+        File allureSnapshotsFolder = new File(allureReportScreenshotsFolder);
+        try {
+            deleteAllureResultsFolder(allureSnapshotsFolder);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-		// step 3. create and populate allure report properties file
+        // step 4. create allure screenshots folder
+        try {
+            createAllureResultsFolder(allureSnapshotsFolder);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+		// step 5. create and populate allure report properties file
 		writeToAllureConfigFile("ENVIRONMENT", "");
-		writeToAllureConfigFile("MARS_ADDRESS", "");
-		writeToAllureConfigFile("MARS_AUTOMATION_PATH", "");
 	}
 
 	// UTILS
@@ -78,7 +92,6 @@ public class AllureReportConfigurationSetup {
 		}
 	}
 
-	// source: https://www.mkyong.com/java/how-to-delete-directory-in-java/
 	public static void deleteAllureResultsFolder(File allureResultsFolder) throws IOException {
 
 		if (allureResultsFolder.isDirectory()) {

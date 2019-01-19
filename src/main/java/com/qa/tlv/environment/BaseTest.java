@@ -6,10 +6,8 @@ import com.qa.tlv.methods.MiscMethods;
 import com.qa.tlv.methods.PropertiesManagementMethods;
 
 public interface BaseTest {
-
 	MiscMethods miscmethodObj = new MiscMethods();
 	PropertiesManagementMethods propertiesObj = new PropertiesManagementMethods();
 	BrowserUtils browserObj = new BrowserUtils();
 	AssertionMethods assertionObj = new AssertionMethods();
-
 }

@@ -9,8 +9,7 @@ public abstract class DriverManager {
     protected abstract void stopService();
     protected abstract void createDriver();
 
-    public void quitDriver() {
-    	
+    public void quitDriver() { 	
         if (driver!=null) {
             driver.quit();
             stopService();

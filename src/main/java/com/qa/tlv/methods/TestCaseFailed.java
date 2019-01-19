@@ -1,21 +1,20 @@
 package com.qa.tlv.methods;
 
-public class TestCaseFailed extends Exception{
-	/**
-	 * Added serializable varibale to remove warning
-	 */
-	private static final long serialVersionUID = 1L;
-	String message = null;
+public class TestCaseFailed extends Exception {
+    /**
+     * Added serializable varibale to remove warning
+     */
+    private static final long serialVersionUID = 1L;
+    String message = null;
 
-	public TestCaseFailed()
+    public TestCaseFailed()
 
-	{
-		super();
-	}
+    {
+        super();
+    }
 
-	public TestCaseFailed(String message) {
-		super(message);
-		this.message = message;
-	}
-
+    public TestCaseFailed(String message) {
+        super(message);
+        this.message = message;
+    }
 }

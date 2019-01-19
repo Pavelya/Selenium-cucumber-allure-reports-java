@@ -3,33 +3,41 @@ package stepdefs;
 import java.io.IOException;
 
 import com.qa.tlv.environment.BaseTest;
+import com.qa.tlv.methods.PropertiesManagementMethods;
 import com.qa.tlv.methods.TestCaseFailed;
 
 import cucumber.api.java.en.Then;
 
 public class PredefinedStepDefinitions implements BaseTest {
+    
+    PropertiesManagementMethods props = new PropertiesManagementMethods();
 
 	// Step to navigate to specified URL
-	@Then("^I navigate to (.*)$")
+	@Then("^user navigates to (.*)$")
 	public void navigate_to(String link) throws IOException {
 		browserObj.navigateTo(link);
-
 	}
+	
+    // Step to navigate to base URL
+    @Then("^user opens base lobby$")
+    public void navigate_to_lobby() throws IOException {
+        browserObj.navigateTo(props.getProperty("baseUrl"));
+    }
 
 	// Step to navigate forward
-	@Then("^I navigate forward")
+	@Then("^user navigates forward")
 	public void navigate_forward() {
 		browserObj.navigate("forward");
 	}
 
 	// Step to navigate backward
-	@Then("^I navigate back")
+	@Then("^user navigates back")
 	public void navigate_back() {
 		browserObj.navigate("back");
 	}
 
 	// steps to refresh page
-	@Then("^I refresh page$")
+	@Then("^user refresh the page$")
 	public void refresh_page() {
 		browserObj.refreshDriver();
 	}
@@ -37,25 +45,25 @@ public class PredefinedStepDefinitions implements BaseTest {
 	// Switch between windows
 
 	// Switch to new window
-	@Then("^I switch to new window$")
+	@Then("^user switch to new window$")
 	public void switch_to_new_window() {
 		browserObj.switchToNewWindow();
 	}
 
 	// Switch to old window
-	@Then("^I switch to previous window$")
+	@Then("^user switch to previous window$")
 	public void switch_to_old_window() {
 		browserObj.switchToOldWindow();
 	}
 
 	// Switch to new window by window title
-	@Then("^I switch to window having title \"(.*?)\"$")
+	@Then("^user switch to window having title \"(.*?)\"$")
 	public void switch_to_window_by_title(String windowTitle) throws Exception {
 		browserObj.switchToWindowByTitle(windowTitle);
 	}
 
 	// Close new window
-	@Then("^I close new window$")
+	@Then("^user closes new window$")
 	public void close_new_window() {
 		browserObj.closeNewWindow();
 	}
@@ -63,13 +71,13 @@ public class PredefinedStepDefinitions implements BaseTest {
 	// Switch between frame
 
 	// Step to switch to frame by web element
-	@Then("^I switch to frame having (.+) \"(.*?)\"$")
+	@Then("^user switch to frame having (.+) \"(.*?)\"$")
 	public void switch_frame_by_element(String method, String value) {
 		browserObj.switchFrame(method, value);
 	}
 
 	// step to switch to main content
-	@Then("^I switch to main content$")
+	@Then("^user switch to main content$")
 	public void switch_to_default_content() {
 		browserObj.switchToDefaultContent();
 	}
@@ -77,19 +85,19 @@ public class PredefinedStepDefinitions implements BaseTest {
 	// To interact with browser
 
 	// step to resize browser
-	@Then("^I resize browser window size to width (\\d+) and height (\\d+)$")
+	@Then("^user resize browser window size to width (\\d+) and height (\\d+)$")
 	public void resize_browser(int width, int heigth) {
 		browserObj.resizeBrowser(width, heigth);
 	}
 
 	// step to maximize browser
-	@Then("^I maximize browser window$")
+	@Then("^user maximize browser window$")
 	public void maximize_browser() {
 		browserObj.maximizeBrowser();
 	}
 
 	// Step to close the browser
-	@Then("^I close browser$")
+	@Then("^user closes browser$")
 	public void close_browser() throws IOException {
 		browserObj.closeDriver();
 
@@ -98,13 +106,13 @@ public class PredefinedStepDefinitions implements BaseTest {
 	// zoom in/out page
 
 	// steps to zoom in page
-	@Then("^I zoom in page$")
+	@Then("^user zoom in page$")
 	public void zoom_in() {
 		browserObj.zoomInOut("ADD");
 	}
 
 	// steps to zoom out page
-	@Then("^I zoom out page$")
+	@Then("^user zoom out page$")
 	public void zoom_out() {
 		browserObj.zoomInOut("SUBTRACT");
 	}
@@ -112,7 +120,7 @@ public class PredefinedStepDefinitions implements BaseTest {
 	// zoom out webpage till necessary element displays
 
 	// steps to zoom out till element displays
-	@Then("^I zoom out page till I see element having (.+) \"(.*?)\"$")
+	@Then("^user zoom out page till I see element having (.+) \"(.*?)\"$")
 	public void zoom_till_element_display(String type, String accessName) throws Exception {
 		miscmethodObj.validateLocator(type);
 		browserObj.zoomInOutTillElementDisplay(type, "substract", accessName);
@@ -120,21 +128,21 @@ public class PredefinedStepDefinitions implements BaseTest {
 
 	// reset webpage view use
 
-	@Then("^I reset page view$")
+	@Then("^user reset page view$")
 	public void reset_page_zoom() {
 		browserObj.zoomInOut("reset");
 	}
 
 	// scroll webpage
 
-	@Then("^I scroll to (top|end) of page$")
+	@Then("^user scroll to (top|end) of page$")
 	public void scroll_page(String to) throws Exception {
 		browserObj.scrollPage(to);
 	}
 
 	// scroll webpage to specific element
 
-	@Then("^I scroll to element having (.+) \"(.*?)\"$")
+	@Then("^user scroll to element having (.+) \"(.*?)\"$")
 	public void scroll_to_element(String type, String accessName) throws Exception {
 		miscmethodObj.validateLocator(type);
 		browserObj.scrollToElement(type, accessName);
@@ -143,7 +151,7 @@ public class PredefinedStepDefinitions implements BaseTest {
 	// hover over element
 
 	// Note: Doesn't work on Windows firefox
-	@Then("^I hover over element having (.+) \"(.*?)\"$")
+	@Then("^user hover over element having (.+) \"(.*?)\"$")
 	public void hover_over_element(String type, String accessName) throws Exception {
 		miscmethodObj.validateLocator(type);
 		browserObj.hoverOverElement(type, accessName);
@@ -159,19 +167,19 @@ public class PredefinedStepDefinitions implements BaseTest {
 	 * @param title
 	 *            :
 	 */
-	@Then("^I should see page title as \"(.*)\"$")
+	@Then("^user should see page title as \"(.*)\"$")
 	public void check_title(String title) throws TestCaseFailed {
 		// System.out.println("Present :" + present.isEmpty());
 		browserObj.checkTitle(title);
 	}
 
-	@Then("^I should see page source")
+	@Then("^user should see page source")
 	public void getPageSource() throws TestCaseFailed {
 		browserObj.getPageSource();
 	}
 
 	// step to check element partial text
-	@Then("^I should\\s*((?:not)?)\\s+see page title having partial text as \"(.*?)\"$")
+	@Then("^user should\\s*((?:not)?)\\s+see page title having partial text as \"(.*?)\"$")
 	public void check_partial_text(String present, String partialTextTitle) throws TestCaseFailed {
 		// System.out.println("Present :" + present.isEmpty());
 		browserObj.checkPartialTitle(partialTextTitle);
@@ -257,7 +265,7 @@ public class PredefinedStepDefinitions implements BaseTest {
 	}
 
 	// step to assert javascript pop-up alert text
-	@Then("^I should see alert text as \"(.*?)\"$")
+	@Then("^user should see alert text as \"(.*?)\"$")
 	public void check_alert_text(String actualValue) throws TestCaseFailed {
 		browserObj.checkAlertText(actualValue);
 	}
@@ -274,21 +282,21 @@ public class PredefinedStepDefinitions implements BaseTest {
 	// Input steps
 
 	// enter text into input field steps
-	@Then("^I enter \"([^\"]*)\" into input field having (.+) \"([^\"]*)\"$")
+	@Then("^user enters \"([^\"]*)\" into input field having (.+) \"([^\"]*)\"$")
 	public void enter_text(String text, String type, String accessName) throws Exception {
 		miscmethodObj.validateLocator(type);
 		browserObj.enterText(type, text, accessName);
 	}
 
 	// clear input field steps
-	@Then("^I clear input field having (.+) \"([^\"]*)\"$")
+	@Then("^user clear input field having (.+) \"([^\"]*)\"$")
 	public void clear_text(String type, String accessName) throws Exception {
 		miscmethodObj.validateLocator(type);
 		browserObj.clearText(type, accessName);
 	}
 
 	// select option by text/value from dropdown
-	@Then("^I select \"(.*?)\" option by (.+) from dropdown having (.+) \"(.*?)\"$")
+	@Then("^user selects \"(.*?)\" option by (.+) from dropdown having (.+) \"(.*?)\"$")
 	public void select_option_from_dropdown(String option, String optionBy, String type, String accessName)
 			throws Exception {
 		miscmethodObj.validateLocator(type);
@@ -297,14 +305,14 @@ public class PredefinedStepDefinitions implements BaseTest {
 	}
 
 	// select option by index from dropdown
-	@Then("^I select (\\d+) option by index from dropdown having (.+) \"(.*?)\"$")
+	@Then("^user selects (\\d+) option by index from dropdown having (.+) \"(.*?)\"$")
 	public void select_option_from_dropdown_by_index(String option, String type, String accessName) throws Exception {
 		miscmethodObj.validateLocator(type);
 		browserObj.selectOptionFromDropdown(type, "selectByIndex", option, accessName);
 	}
 
 	// select option by text/value from multiselect
-	@Then("^I select \"(.*?)\" option by (.+) from multiselect dropdown having (.+) \"(.*?)\"$")
+	@Then("^user selects \"(.*?)\" option by (.+) from multiselect dropdown having (.+) \"(.*?)\"$")
 	public void select_option_from_multiselect_dropdown(String option, String optionBy, String type, String accessName)
 			throws Exception {
 		miscmethodObj.validateLocator(type);
@@ -313,7 +321,7 @@ public class PredefinedStepDefinitions implements BaseTest {
 	}
 
 	// select option by index from multiselect
-	@Then("^I select (\\d+) option by index from multiselect dropdown having (.+) \"(.*?)\"$")
+	@Then("^user selects (\\d+) option by index from multiselect dropdown having (.+) \"(.*?)\"$")
 	public void select_option_from_multiselect_dropdown_by_index(String option, String type, String accessName)
 			throws Exception {
 		miscmethodObj.validateLocator(type);
@@ -366,14 +374,14 @@ public class PredefinedStepDefinitions implements BaseTest {
 	}
 
 	// step to select radio button
-	@Then("^I select radio button having (.+) \"(.*?)\"$")
+	@Then("^user selects radio button having (.+) \"(.*?)\"$")
 	public void select_radio_button(String type, String accessName) throws Exception {
 		miscmethodObj.validateLocator(type);
 		browserObj.selectRadioButton(type, accessName);
 	}
 
 	// steps to select option by text from radio button group
-	@Then("^I select \"(.*?)\" option by (.+) from radio button group having (.+) \"(.*?)\"$")
+	@Then("^user selects \"(.*?)\" option by (.+) from radio button group having (.+) \"(.*?)\"$")
 	public void select_option_from_radio_btn_group(String option, String by, String type, String accessName)
 			throws Exception {
 		miscmethodObj.validateLocator(type);
@@ -383,7 +391,7 @@ public class PredefinedStepDefinitions implements BaseTest {
 	// Click element Steps
 
 	// click on web element
-	@Then("^I click on element having (.+) \"(.*?)\"$")
+	@Then("^user clicks on element having (.+) \"(.*?)\"$")
 	public void click(String type, String accessName) throws Exception {
 		miscmethodObj.validateLocator(type);
 		browserObj.click(type, accessName);
@@ -404,13 +412,13 @@ public class PredefinedStepDefinitions implements BaseTest {
 	}
 
 	// steps to click on link
-	@Then("^I click on link having text \"(.*?)\"$")
+	@Then("^user clicks on link having text \"(.*?)\"$")
 	public void click_link(String accessName) {
 		browserObj.click("linkText", accessName);
 	}
 
 	// Step to click on partial link
-	@Then("^I click on link having partial text \"(.*?)\"$")
+	@Then("^user clicks on link having partial text \"(.*?)\"$")
 	public void click_partial_link(String accessName) {
 		browserObj.click("partialLinkText", accessName);
 	}
@@ -418,20 +426,20 @@ public class PredefinedStepDefinitions implements BaseTest {
 	// Progress methods
 
 	// wait for specific period of time
-	@Then("^I wait for (\\d+) sec$")
+	@Then("^user waits for (\\d+) sec$")
 	public void wait(String time) throws NumberFormatException, InterruptedException {
 		browserObj.wait(time);
 	}
 
 	// wait for specific element to display for specific period of time
-	@Then("^I wait (\\d+) seconds for element having (.+) \"(.*?)\" to display$")
+	@Then("^user waits (\\d+) seconds for element having (.+) \"(.*?)\" to display$")
 	public void wait_for_ele_to_display(String duration, String type, String accessName) throws Exception {
 		miscmethodObj.validateLocator(type);
 		browserObj.waitForElementToDisplay(type, accessName, duration);
 	}
 
 	// wait for specific element to enable for specific period of time
-	@Then("^I wait (\\d+) seconds for element having (.+) \"(.*?)\" to be enabled$")
+	@Then("^user waits (\\d+) seconds for element having (.+) \"(.*?)\" to be enabled$")
 	public void wait_for_ele_to_click(String duration, String type, String accessName) throws Exception {
 		miscmethodObj.validateLocator(type);
 		browserObj.waitForElementToClick(type, accessName, duration);
@@ -440,22 +448,15 @@ public class PredefinedStepDefinitions implements BaseTest {
 	// JavaScript handling steps
 
 	// Step to handle java script
-	@Then("^I accept alert$")
+	@Then("^user accepts alert$")
 	public void handle_alert() {
 		browserObj.handleAlert("accept");
 	}
 
 	// Steps to dismiss java script
-	@Then("^I dismiss alert$")
+	@Then("^user dismiss alert$")
 	public void dismiss_alert() {
 		browserObj.handleAlert("dismiss");
-	}
-
-	// Screen shot methods
-
-	@Then("^I take screenshot$")
-	public void take_screenshot() throws IOException {
-		browserObj.takeScreenShot();
 	}
 
 	// Configuration steps

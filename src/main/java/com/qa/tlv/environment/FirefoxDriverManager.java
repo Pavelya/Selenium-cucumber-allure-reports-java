@@ -8,7 +8,7 @@ import org.openqa.selenium.firefox.GeckoDriverService;
 public class FirefoxDriverManager extends DriverManager {
 
 	private GeckoDriverService ffService;
-	ChromeDriverSetup chromeDriverSetup = new ChromeDriverSetup();
+	WebDriverSetup chromeDriverSetup = new WebDriverSetup();
 
 	@Override
 	public void startService() {

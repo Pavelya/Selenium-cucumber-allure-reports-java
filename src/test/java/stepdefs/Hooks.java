@@ -20,13 +20,13 @@ public class Hooks implements BaseTest {
             Log.INFO("Scenario: " + scenario.getName() + " passed");
         }
 
-        browserObj.attachSnapshotToReport();
-        browserObj.closeDriver();
+        browser.attachSnapshotToReport();
+        browser.closeDriver();
     }
 
 	@Before()
 	public void beforeScenario(Scenario scenario) throws IOException {	    
 		Log.INFO("Scenario: " + scenario.getName() + " started");
-		browserObj.printDesktopConfiguration();
+		browser.printDesktopConfiguration();
 	}
 }

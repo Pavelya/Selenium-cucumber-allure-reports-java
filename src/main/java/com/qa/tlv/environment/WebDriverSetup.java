@@ -15,16 +15,15 @@ import java.io.FileOutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-public class ChromeDriverSetup {
+public class WebDriverSetup {
 
-    static PropertiesManagementMethods propertiesObj = new PropertiesManagementMethods();
+    static PropertiesManagementMethods props = new PropertiesManagementMethods();
     static String downloadChromeDriverPath;
-
-    static String chromeDriverVersion = propertiesObj.getSeleniumProperty("chomeDriverVersion");
-    static String baseChromeDriverDownloadPath = propertiesObj.getSeleniumProperty("baseChromeDriverDownloadPath");
+    static String chromeDriverVersion = getProperty("chomeDriverVersion");
+    static String baseChromeDriverDownloadPath = getProperty("baseChromeDriverDownloadPath");
     static String fromFile = baseChromeDriverDownloadPath + chromeDriverVersion + getdownloadChromeDriverPath();
-    static String downloadFolderToUnzip = propertiesObj.getSeleniumProperty("downloadFolderToUnzip");
-    static String toFile = propertiesObj.getSeleniumProperty("localDownloadPathToDownloadChromeDriver")
+    static String downloadFolderToUnzip = getProperty("downloadFolderToUnzip");
+    static String toFile = getProperty("localDownloadPathToDownloadChromeDriver")
             + getdownloadChromeDriverPath();
     static String subFolderBasedOs = System.getProperty("os.name").toLowerCase().replace(" ", "_");
 
@@ -33,44 +32,44 @@ public class ChromeDriverSetup {
 
     public static String getdownloadChromeDriverPath() {
 
-        if (propertiesObj.isWindows()) {
-            downloadChromeDriverPath = propertiesObj.getSeleniumProperty("windowsChromeDriver");
+        if (props.isWindows()) {
+            downloadChromeDriverPath = getProperty("windowsChromeDriver");
         }
 
-        else if (propertiesObj.isMac()) {
-            downloadChromeDriverPath = propertiesObj.getSeleniumProperty("macChromeDriver");
+        else if (props.isMac()) {
+            downloadChromeDriverPath = getProperty("macChromeDriver");
         }
 
-        else if (propertiesObj.isUnix()) {
-            downloadChromeDriverPath = propertiesObj.getSeleniumProperty("unixChromeDriver");
+        else if (props.isUnix()) {
+            downloadChromeDriverPath = props.getProperty("unixChromeDriver");
         }
         return downloadChromeDriverPath;
     }
 
     public String getChromeDriverPath() {
 
-        chromeDriverPath = propertiesObj.getSeleniumProperty("chromeDrverPath").replace("OS", subFolderBasedOs)
+        chromeDriverPath = getProperty("chromeDrverPath").replace("OS", subFolderBasedOs)
                 .replace("VERSON", chromeDriverVersion);
 
-        if (propertiesObj.isWindows()) {
+        if (props.isWindows()) {
             chromeDriverPath = chromeDriverPath + ".exe";
         }
 
         // get fixed value of webdriver path, if download fnctionality is
         // not in use
 
-        // else if (propertiesObj.isMac()) {
+        // else if (props.isMac()) {
         // chromeDriverPath =
-        // propertiesObj.getSeleniumProperty("macChromeDrverPath");
+        // getProperty("macChromeDrverPath");
         // }
 
         return chromeDriverPath;
     }
 
     public String getfirefoxDriverPath() {
-        firefoxDriverPath = propertiesObj.getSeleniumProperty("firexoxDrverPath");
+        firefoxDriverPath = getProperty("firexoxDrverPath");
 
-        if (propertiesObj.isWindows()) {
+        if (props.isWindows()) {
             firefoxDriverPath = firefoxDriverPath + ".exe";
         }
         return firefoxDriverPath;
@@ -169,5 +168,9 @@ public class ChromeDriverSetup {
         }
 
         return output.toString();
+    }
+    
+    private static String getProperty(String propName) {
+        return props.getSeleniumProperty(propName);
     }
 }

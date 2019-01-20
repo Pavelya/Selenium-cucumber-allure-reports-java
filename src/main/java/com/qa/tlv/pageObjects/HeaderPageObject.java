@@ -2,6 +2,7 @@ package com.qa.tlv.pageObjects;
 
 import com.qa.tlv.environment.BaseTest;
 import com.qa.tlv.logger.Log;
+import static com.qa.tlv.methods.SelectorType.CSS;
 import com.qa.tlv.methods.TestCaseFailed;
 
 /**
@@ -18,6 +19,6 @@ public class HeaderPageObject implements BaseTest {
 
     public void verifyHeaderDisplayed() throws TestCaseFailed {
         Log.INFO("Verify header is displayed");
-        browserObj.checkElementPresence("css", headerCss);
+        browser.checkElementPresence(CSS, headerCss);
     }
 }

@@ -12,27 +12,27 @@ public class SelectElementByType {
      *            : String : Locator value
      * @return By
      */
-    public By getelementbytype(String type, String access_name) {
-        switch (type) {
-        case "id":
-            return By.id(access_name);
-        case "name":
-            return By.name(access_name);
-        case "class":
-            return By.className(access_name);
-        case "xpath":
-            return By.xpath(access_name);
-        case "css":
-            return By.cssSelector(access_name);
-        case "linkText":
-            return By.linkText(access_name);
-        case "partialLinkText":
-            return By.partialLinkText(access_name);
-        case "tagName":
-            return By.tagName(access_name);
-        default:
-            return null;
+    
+    public static By getElementByType(SelectorType selectorType, String selectorValue) {
 
+        switch (selectorType) {
+        case CSS:
+            return By.cssSelector(selectorValue);
+        case ID:
+            return By.id(selectorValue);
+        case CLASS:
+            return By.className(selectorValue);
+        case XPATH:
+            return By.xpath(selectorValue);
+        case NAME:
+            return By.name(selectorValue);
+        case LINK_TEXT:
+            return By.linkText(selectorValue);
+        case PARTIAL_LINK_TEXT:
+            return By.partialLinkText(selectorValue);
+        default:
+            return By.cssSelector(selectorValue);
         }
     }
+
 }

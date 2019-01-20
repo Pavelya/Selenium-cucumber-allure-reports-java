@@ -84,7 +84,7 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 
 		// get url value from prop file
 		else {
-			urlToNavigate = propertiesObj.getProperty(url);
+			urlToNavigate = props.getProperty(url);
 		}
 
 		Log.INFO("Navigate to: " + urlToNavigate);
@@ -136,34 +136,18 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	}
 
 	/**
-	 * Method to zoom in/out page
-	 * 
-	 * @param inOut
-	 *            : String : Zoom in or out
-	 */
-	public void zoomInOut(String inOut) {
-		WebElement Sel = driver.findElement(getelementbytype("tagName", "html"));
-		if (inOut.equals("ADD"))
-			Sel.sendKeys(Keys.chord(getKey(), Keys.ADD));
-		else if (inOut.equals("SUBTRACT"))
-			Sel.sendKeys(Keys.chord(getKey(), Keys.SUBTRACT));
-		else if (inOut.equals("reset"))
-			Sel.sendKeys(Keys.chord(getKey(), Keys.NUMPAD0));
-	}
-
-	/**
 	 * Method to zoom in/out web page until web element displays
 	 * 
-	 * @param accessType
+	 * @param selectorType
 	 *            : String : Locator type (id, name, class, xpath, css)
 	 * @param inOut
 	 *            : String : Zoom in or out
 	 * @param accessName
 	 *            : String : Locator value
 	 */
-	public void zoomInOutTillElementDisplay(String accessType, String inOut, String accessName) {
+	public void zoomInOutTillElementDisplay(SelectorType selectorType, String inOut, String accessName) {
 		Actions action = new Actions(driver);
-		element = wait.until(ExpectedConditions.presenceOfElementLocated(getelementbytype(accessType, accessName)));
+		element = wait.until(ExpectedConditions.presenceOfElementLocated(getElementByType(selectorType, accessName)));
 		while (true) {
 			if (element.isDisplayed())
 				break;
@@ -193,27 +177,27 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	/**
 	 * Method to hover on element
 	 * 
-	 * @param accessType
+	 * @param selectorType
 	 *            : String : Locator type (id, name, class, xpath, css)
 	 * @param accessName
 	 *            : String : Locator value
 	 */
-	public void hoverOverElement(String accessType, String accessName) {
+	public void hoverOverElement(SelectorType selectorType, String accessName) {
 		Actions action = new Actions(driver);
-		element = wait.until(ExpectedConditions.presenceOfElementLocated(getelementbytype(accessType, accessName)));
+		element = wait.until(ExpectedConditions.presenceOfElementLocated(getElementByType(selectorType, accessName)));
 		action.moveToElement(element).perform();
 	}
 
 	/**
 	 * Method to scroll page to particular element
 	 * 
-	 * @param accessType
+	 * @param selectorType
 	 *            : String : Locator type (id, name, class, xpath, css)
 	 * @param accessName
 	 *            : String : Locator value
 	 */
-	public void scrollToElement(String accessType, String accessName) {
-		element = wait.until(ExpectedConditions.presenceOfElementLocated(getelementbytype(accessType, accessName)));
+	public void scrollToElement(SelectorType selectorType, String accessName) {
+		element = wait.until(ExpectedConditions.presenceOfElementLocated(getElementByType(selectorType, accessName)));
 		JavascriptExecutor executor = (JavascriptExecutor) driver;
 		executor.executeScript("arguments[0].scrollIntoView();", element);
 	}
@@ -281,16 +265,16 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	/**
 	 * Method to switch frame using web element frame
 	 * 
-	 * @param accessType
+	 * @param selectorType
 	 *            : String : Locator type (index, id, name, class, xpath, css)
 	 * @param accessName
 	 *            : String : Locator value
 	 */
-	public void switchFrame(String accessType, String accessName) {
-		if (accessType.equalsIgnoreCase("index"))
+	public void switchFrame(SelectorType selectorType, String accessName) {
+		if (selectorType.toString().equalsIgnoreCase("index"))
 			driver.switchTo().frame(accessName);
 		else {
-			element = wait.until(ExpectedConditions.presenceOfElementLocated(getelementbytype(accessType, accessName)));
+			element = wait.until(ExpectedConditions.presenceOfElementLocated(getElementByType(selectorType, accessName)));
 			driver.switchTo().frame(element);
 		}
 	}
@@ -389,14 +373,14 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	/**
 	 * Method to get element text
 	 * 
-	 * @param accessType
+	 * @param selectorType
 	 *            : String : Locator type (id, name, class, xpath, css)
 	 * @param accessName
 	 *            : String : Locator value
 	 * @return String
 	 */
-	public String getElementText(String accessType, String accessName) {
-		element = wait.until(ExpectedConditions.presenceOfElementLocated(getelementbytype(accessType, accessName)));
+	public String getElementText(SelectorType selectorType, String accessName) {
+		element = wait.until(ExpectedConditions.presenceOfElementLocated(getElementByType(selectorType, accessName)));
 		return element.getText();
 
 	}
@@ -404,15 +388,15 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	/**
 	 * Method to check element text
 	 * 
-	 * @param accessType
+	 * @param selectorType
 	 *            : String : Locator type (id, name, class, xpath, css)
 	 * @param actualValue
 	 *            : String : Expected element text
 	 * @param accessName
 	 *            : String : Locator value
 	 */
-	public void checkElementText(String accessType, String actualValue, String accessName) throws TestCaseFailed {
-		String elementText = getElementText(accessType, accessName);
+	public void checkElementText(SelectorType selectorType, String actualValue, String accessName) throws TestCaseFailed {
+		String elementText = getElementText(selectorType, accessName);
 
 		if (!elementText.equals(actualValue)) {
 			throw new TestCaseFailed("Expected Text: " + actualValue + " Not Matched the Actual One: " + elementText);
@@ -424,16 +408,16 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	/**
 	 * Method to check partial element text
 	 * 
-	 * @param accessType
+	 * @param selectorType
 	 *            : String : Locator type (id, name, class, xpath, css)
 	 * @param actualValue
 	 *            : String : Expected element text
 	 * @param accessName
 	 *            : String : Locator value
 	 */
-	public void checkElementPartialText(String accessType, String actualValue, String accessName)
+	public void checkElementPartialText(SelectorType selectorType, String actualValue, String accessName)
 			throws TestCaseFailed {
-		String elementText = getElementText(accessType, accessName);
+		String elementText = getElementText(selectorType, accessName);
 
 		if (!elementText.contains(actualValue)) {
 			throw new TestCaseFailed("Expected Text: " + actualValue + " Not Matched The Actual One: " + elementText);
@@ -445,27 +429,27 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	/**
 	 * Method to return element status - enabled?
 	 * 
-	 * @param accessType
+	 * @param selectorType
 	 *            : String : Locator type (id, name, class, xpath, css)
 	 * @param accessName
 	 *            : String : Locator value
 	 * @return Boolean
 	 */
-	public boolean isElementEnabled(String accessType, String accessName) {
-		element = wait.until(ExpectedConditions.presenceOfElementLocated(getelementbytype(accessType, accessName)));
+	public boolean isElementEnabled(SelectorType selectorType, String accessName) {
+		element = wait.until(ExpectedConditions.presenceOfElementLocated(getElementByType(selectorType, accessName)));
 		return element.isEnabled();
 	}
 
 	/**
 	 * Element enabled checking
 	 * 
-	 * @param accessType
+	 * @param selectorType
 	 *            : String : Locator type (id, name, class, xpath, css)
 	 * @param accessName
 	 *            : String : Locator value
 	 */
-	public void checkElementEnable(String accessType, String accessName) throws TestCaseFailed {
-		boolean result = isElementEnabled(accessType, accessName);
+	public void checkElementEnable(SelectorType selectorType, String accessName) throws TestCaseFailed {
+		boolean result = isElementEnabled(selectorType, accessName);
 		if (!result) {
 			throw new TestCaseFailed("Element: " + accessName + " Not Enabled");
 		} else {
@@ -476,7 +460,7 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	/**
 	 * method to get attribute value
 	 * 
-	 * @param accessType
+	 * @param selectorType
 	 *            : String : Locator type (id, name, class, xpath, css)
 	 * @param accessName
 	 *            : String : Locator value
@@ -484,15 +468,15 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	 *            : String : attribute name
 	 * @return String
 	 */
-	public String getElementAttribute(String accessType, String accessName, String attributeName) {
-		element = wait.until(ExpectedConditions.presenceOfElementLocated(getelementbytype(accessType, accessName)));
+	public String getElementAttribute(SelectorType selectorType, String accessName, String attributeName) {
+		element = wait.until(ExpectedConditions.presenceOfElementLocated(getElementByType(selectorType, accessName)));
 		return element.getAttribute(attributeName);
 	}
 
 	/**
 	 * method to check attribute value
 	 * 
-	 * @param accessType
+	 * @param selectorType
 	 *            : String : Locator type (id, name, class, xpath, css)
 	 * @param attributeName
 	 *            : String : attribute name
@@ -501,9 +485,9 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	 * @param accessName
 	 *            : String : Locator value
 	 */
-	public void checkElementAttribute(String accessType, String attributeName, String attributeValue, String accessName)
+	public void checkElementAttribute(SelectorType selectorType, String attributeName, String attributeValue, String accessName)
 			throws TestCaseFailed {
-		String attrVal = getElementAttribute(accessType, accessName, attributeName);
+		String attrVal = getElementAttribute(selectorType, accessName, attributeName);
 		if (!attrVal.equals(attributeValue)) {
 			throw new TestCaseFailed(
 					"Actual Attribute Value: " + attrVal + " Not Matched The Expected One: " + attributeValue);
@@ -515,28 +499,28 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	/**
 	 * method to get element status - displayed?
 	 * 
-	 * @param accessType
+	 * @param selectorType
 	 *            : String : Locator type (id, name, class, xpath, css)
 	 * @param accessName
 	 *            : String : Locator value
 	 * @return Boolean
 	 */
-	public boolean isElementDisplayed(String accessType, String accessName) {
-		element = wait.until(ExpectedConditions.presenceOfElementLocated(getelementbytype(accessType, accessName)));
+	public boolean isElementDisplayed(SelectorType selectorType, String accessName) {
+		element = wait.until(ExpectedConditions.presenceOfElementLocated(getElementByType(selectorType, accessName)));
 		return element.isDisplayed();
 	}
 
 	/**
 	 * method to check element presence
 	 * 
-	 * @param accessType
+	 * @param selectorType
 	 *            : String : Locator type (id, name, class, xpath, css)
 	 * @param accessName
 	 *            : String : Locator value
 	 */
-	public void checkElementPresence(String accessType, String accessName) throws TestCaseFailed {
+	public void checkElementPresence(SelectorType selectorType, String accessName) throws TestCaseFailed {
 
-		if (!isElementDisplayed(accessType, accessName)) {
+		if (!isElementDisplayed(selectorType, accessName)) {
 			throw new TestCaseFailed("Element: " + accessName + " Not Presented");
 		} else
 
@@ -548,14 +532,14 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	/**
 	 * method to check element not presence
 	 * 
-	 * @param accessType
+	 * @param selectorType
 	 *            : String : Locator type (id, name, class, xpath, css)
 	 * @param accessName
 	 *            : String : Locator value
 	 */
-	public void checkElementNotDisplayed(String accessType, String accessName) throws TestCaseFailed {
+	public void checkElementNotDisplayed(SelectorType selectorType, String accessName) throws TestCaseFailed {
 
-		if (isElementDisplayed(accessType, accessName)) {
+		if (isElementDisplayed(selectorType, accessName)) {
 			throw new TestCaseFailed("Element: " + accessName + " Presented");
 		} else
 
@@ -567,15 +551,15 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	/**
 	 * method to assert checkbox check/uncheck
 	 * 
-	 * @param accessType
+	 * @param selectorType
 	 *            : String : Locator type (id, name, class, xpath, css)
 	 * @param accessName
 	 *            : String : Locator value
 	 * @param shouldBeChecked
 	 */
-	public void isCheckboxChecked(String accessType, String accessName, boolean shouldBeChecked) throws TestCaseFailed {
+	public void isCheckboxChecked(SelectorType selectorType, String accessName, boolean shouldBeChecked) throws TestCaseFailed {
 		WebElement checkbox = wait
-				.until(ExpectedConditions.presenceOfElementLocated(getelementbytype(accessType, accessName)));
+				.until(ExpectedConditions.presenceOfElementLocated(getElementByType(selectorType, accessName)));
 		if ((!checkbox.isSelected()) && shouldBeChecked)
 			throw new TestCaseFailed("Checkbox is not checked");
 		else if (checkbox.isSelected() && !shouldBeChecked)
@@ -585,16 +569,16 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	/**
 	 * method to assert radio button selected/unselected
 	 * 
-	 * @param accessType
+	 * @param selectorType
 	 *            : String : Locator type (id, name, class, xpath, css)
 	 * @param accessName
 	 *            : String : Locator value
 	 * @param shouldBeChecked
 	 */
-	public void isRadioButtonSelected(String accessType, String accessName, boolean shouldBeSelected)
+	public void isRadioButtonSelected(SelectorType selectorType, String accessName, boolean shouldBeSelected)
 			throws TestCaseFailed {
 		WebElement radioButton = wait
-				.until(ExpectedConditions.presenceOfElementLocated(getelementbytype(accessType, accessName)));
+				.until(ExpectedConditions.presenceOfElementLocated(getElementByType(selectorType, accessName)));
 		if ((!radioButton.isSelected()) && shouldBeSelected)
 			throw new TestCaseFailed("Radio Button not selected");
 		else if (radioButton.isSelected() && !shouldBeSelected)
@@ -602,10 +586,10 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	}
 
 	// method to assert option from radio button group is selected/unselected
-	public void isOptionFromRadioButtonGroupSelected(String accessType, String by, String option, String accessName,
+	public void isOptionFromRadioButtonGroupSelected(SelectorType selectorType, String by, String option, String accessName,
 			boolean shouldBeSelected) throws TestCaseFailed {
 		List<WebElement> radioButtonGroup = wait
-				.until(ExpectedConditions.presenceOfAllElementsLocatedBy(getelementbytype(accessType, accessName)));
+				.until(ExpectedConditions.presenceOfAllElementsLocatedBy(getElementByType(selectorType, accessName)));
 
 		for (WebElement rb : radioButtonGroup) {
 			if (by.equals("value")) {
@@ -648,7 +632,7 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	/**
 	 * Method to verify if the particular option is Selected from Dropdown
 	 * 
-	 * @param accessType
+	 * @param selectorType
 	 *            : String : Locator type (id, name, class, xpath, css)
 	 * @param by
 	 *            : String : Select element from dropdown by text or value
@@ -659,11 +643,11 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	 * @param shouldBeSelected
 	 * @throws TestCaseFailed
 	 */
-	public void isOptionFromDropdownSelected(String accessType, String by, String option, String accessName,
+	public void isOptionFromDropdownSelected(SelectorType selectorType, String by, String option, String accessName,
 			boolean shouldBeSelected) throws TestCaseFailed {
 		Select selectList = null;
 		WebElement dropdown = wait
-				.until(ExpectedConditions.presenceOfElementLocated(getelementbytype(accessType, accessName)));
+				.until(ExpectedConditions.presenceOfElementLocated(getElementByType(selectorType, accessName)));
 		selectList = new Select(dropdown);
 
 		String actualValue = "";
@@ -685,26 +669,26 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	/**
 	 * Method to click on an element
 	 * 
-	 * @param accessType
+	 * @param selectorType
 	 *            : String : Locator type (id, name, class, xpath, css)
 	 * @param accessName
 	 *            : String : Locator value
 	 */
-	public void click(String accessType, String accessName) {
-		element = wait.until(ExpectedConditions.presenceOfElementLocated(getelementbytype(accessType, accessName)));
+	public void click(SelectorType selectorType, String accessName) {
+		element = wait.until(ExpectedConditions.presenceOfElementLocated(getElementByType(selectorType, accessName)));
 		element.click();
 	}
 
 	/**
 	 * Method to forcefully click on an element
 	 * 
-	 * @param accessType
+	 * @param selectorType
 	 *            : String : Locator type (id, name, class, xpath, css)
 	 * @param accessName
 	 *            : String : Locator value
 	 */
-	public void clickForcefully(String accessType, String accessName) {
-		element = wait.until(ExpectedConditions.presenceOfElementLocated(getelementbytype(accessType, accessName)));
+	public void clickForcefully(SelectorType selectorType, String accessName) {
+		element = wait.until(ExpectedConditions.presenceOfElementLocated(getElementByType(selectorType, accessName)));
 		JavascriptExecutor executor = (JavascriptExecutor) driver;
 		executor.executeScript("arguments[0].click();", element);
 	}
@@ -712,13 +696,13 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	/**
 	 * Method to Double click on an element
 	 * 
-	 * @param accessType
+	 * @param selectorType
 	 *            : String : Locator type (id, name, class, xpath, css)
 	 * @param accessName
 	 *            : String : Locator value
 	 */
-	public void doubleClick(String accessType, String accessValue) {
-		element = wait.until(ExpectedConditions.presenceOfElementLocated(getelementbytype(accessType, accessValue)));
+	public void doubleClick(SelectorType selectorType, String accessValue) {
+		element = wait.until(ExpectedConditions.presenceOfElementLocated(getElementByType(selectorType, accessValue)));
 
 		Actions action = new Actions(driver);
 		action.moveToElement(element).doubleClick().perform();
@@ -742,22 +726,22 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	/**
 	 * Method to enter text into text field, using send keys
 	 * 
-	 * @param accessType
+	 * @param selectorType
 	 *            : String : Locator type (id, name, class, xpath, css)
 	 * @param text
 	 *            : String : Text value to enter in field
 	 * @param accessName
 	 *            : String : Locator value
 	 */
-	public void enterTextBySendKeys(String accessType, String text, String accessName) {
-		wait.until(ExpectedConditions.presenceOfElementLocated(getelementbytype(accessType, accessName)));
-		driver.findElement(getelementbytype(accessType, accessName)).sendKeys(text);
+	public void enterTextBySendKeys(SelectorType selectorType, String text, String accessName) {
+		wait.until(ExpectedConditions.presenceOfElementLocated(getElementByType(selectorType, accessName)));
+		driver.findElement(getElementByType(selectorType, accessName)).sendKeys(text);
 	}
 	
     /**
      * Method to enter text into text field, using actions
      * 
-     * @param accessType
+     * @param selectorType
      *            : String : Locator type (id, name, class, xpath, css)
      * @param text
      *            : String : Text value to enter in field
@@ -765,8 +749,8 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
      *            : String : Locator value
      */
 
-    public void enterTextByActions(String accessType, String text, String accessName) {
-        wait.until(ExpectedConditions.presenceOfElementLocated(getelementbytype(accessType, accessName)));
+    public void enterTextByActions(SelectorType selectorType, String text, String accessName) {
+        wait.until(ExpectedConditions.presenceOfElementLocated(getElementByType(selectorType, accessName)));
         Actions actions = new Actions(driver);
         actions.moveToElement(element);
         actions.click();
@@ -777,14 +761,14 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	/**
 	 * Method to clear text of text field
 	 * 
-	 * @param accessType
+	 * @param selectorType
 	 *            : String : Locator type (id, name, class, xpath, css)
 	 * @param accessName
 	 *            : String : Locator value
 	 */
-	public void clearText(String accessType, String accessName) {
-		wait.until(ExpectedConditions.presenceOfElementLocated(getelementbytype(accessType, accessName)));
-		driver.findElement(getelementbytype(accessType, accessName)).clear();
+	public void clearText(SelectorType selectorType, String accessName) {
+		wait.until(ExpectedConditions.presenceOfElementLocated(getElementByType(selectorType, accessName)));
+		driver.findElement(getElementByType(selectorType, accessName)).clear();
 	}
 
 	/**
@@ -810,7 +794,7 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	/**
 	 * Method to select option from dropdown list
 	 * 
-	 * @param accessType
+	 * @param selectorType
 	 *            : String : Locator type (id, name, class, xpath, css)
 	 * @param by
 	 *            : String : Name of by type
@@ -819,8 +803,8 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	 * @param accessName
 	 *            : String : Locator value
 	 */
-	public void selectOptionFromDropdown(String accessType, String optionBy, String option, String accessName) {
-		dropdown = wait.until(ExpectedConditions.presenceOfElementLocated(getelementbytype(accessType, accessName)));
+	public void selectOptionFromDropdown(SelectorType selectorType, String optionBy, String option, String accessName) {
+		dropdown = wait.until(ExpectedConditions.presenceOfElementLocated(getElementByType(selectorType, accessName)));
 		selectList = new Select(dropdown);
 
 		if (optionBy.equals("selectByIndex"))
@@ -835,7 +819,7 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	// public void select_all_option_from_multiselect_dropdown(String
 	// access_type, String access_name)
 	// {
-	// dropdown = driver.findElement(getelementbytype(access_type,
+	// dropdown = driver.findElement(getElementByType(access_type,
 	// access_name));
 	// selectList = new Select(dropdown);
 	//
@@ -845,13 +829,13 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	/**
 	 * Method to unselect all option from dropdwon list
 	 * 
-	 * @param accessType
+	 * @param selectorType
 	 *            : String : Locator type (id, name, class, xpath, css)
 	 * @param accessName
 	 *            : String : Locator value
 	 */
-	public void unselectAllOptionFromMultiselectDropdown(String accessType, String accessName) {
-		dropdown = wait.until(ExpectedConditions.presenceOfElementLocated(getelementbytype(accessType, accessName)));
+	public void unselectAllOptionFromMultiselectDropdown(SelectorType selectorType, String accessName) {
+		dropdown = wait.until(ExpectedConditions.presenceOfElementLocated(getElementByType(selectorType, accessName)));
 		selectList = new Select(dropdown);
 		selectList.deselectAll();
 	}
@@ -859,13 +843,13 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	/**
 	 * Method to unselect option from dropdwon list
 	 * 
-	 * @param accessType
+	 * @param selectorType
 	 *            : String : Locator type (id, name, class, xpath, css)
 	 * @param accessName
 	 *            : String : Locator value
 	 */
-	public void deselectOptionFromDropdown(String accessType, String optionBy, String option, String accessName) {
-		dropdown = wait.until(ExpectedConditions.presenceOfElementLocated(getelementbytype(accessType, accessName)));
+	public void deselectOptionFromDropdown(SelectorType selectorType, String optionBy, String option, String accessName) {
+		dropdown = wait.until(ExpectedConditions.presenceOfElementLocated(getElementByType(selectorType, accessName)));
 		selectList = new Select(dropdown);
 
 		if (optionBy.equals("selectByIndex"))
@@ -879,14 +863,14 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	/**
 	 * Method to check check-box
 	 * 
-	 * @param accessType
+	 * @param selectorType
 	 *            : String : Locator type (id, name, class, xpath, css)
 	 * @param accessName
 	 *            : String : Locator value
 	 */
-	public void checkCheckbox(String accessType, String accessName) {
+	public void checkCheckbox(SelectorType selectorType, String accessName) {
 		WebElement checkbox = wait
-				.until(ExpectedConditions.presenceOfElementLocated(getelementbytype(accessType, accessName)));
+				.until(ExpectedConditions.presenceOfElementLocated(getElementByType(selectorType, accessName)));
 		if (!checkbox.isSelected())
 			checkbox.click();
 	}
@@ -894,14 +878,14 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	/**
 	 * Method to uncheck check-box
 	 * 
-	 * @param accessType
+	 * @param selectorType
 	 *            : String : Locator type (id, name, class, xpath, css)
 	 * @param accessName
 	 *            : String : Locator value
 	 */
-	public void uncheckCheckbox(String accessType, String accessName) {
+	public void uncheckCheckbox(SelectorType selectorType, String accessName) {
 		WebElement checkbox = wait
-				.until(ExpectedConditions.presenceOfElementLocated(getelementbytype(accessType, accessName)));
+				.until(ExpectedConditions.presenceOfElementLocated(getElementByType(selectorType, accessName)));
 		if (checkbox.isSelected())
 			checkbox.click();
 	}
@@ -909,26 +893,26 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	/**
 	 * Method to toggle check-box status
 	 * 
-	 * @param accessType
+	 * @param selectorType
 	 *            : String : Locator type (id, name, class, xpath, css)
 	 * @param accessName
 	 *            : String : Locator value
 	 */
-	public void toggleCheckbox(String accessType, String accessName) {
-		wait.until(ExpectedConditions.presenceOfElementLocated(getelementbytype(accessType, accessName))).click();
+	public void toggleCheckbox(SelectorType selectorType, String accessName) {
+		wait.until(ExpectedConditions.presenceOfElementLocated(getElementByType(selectorType, accessName))).click();
 	}
 
 	/**
 	 * Method to select radio button
 	 * 
-	 * @param accessType
+	 * @param selectorType
 	 *            : String : Locator type (id, name, class, xpath, css)
 	 * @param accessName
 	 *            : String : Locator value
 	 */
-	public void selectRadioButton(String accessType, String accessName) {
+	public void selectRadioButton(SelectorType selectorType, String accessName) {
 		WebElement radioButton = wait
-				.until(ExpectedConditions.presenceOfElementLocated(getelementbytype(accessType, accessName)));
+				.until(ExpectedConditions.presenceOfElementLocated(getElementByType(selectorType, accessName)));
 		if (!radioButton.isSelected())
 			radioButton.click();
 	}
@@ -936,7 +920,7 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	/**
 	 * Method to select option from radio button group
 	 * 
-	 * @param accessType
+	 * @param selectorType
 	 *            : String : Locator type (id, name, class, xpath, css)
 	 * @param by
 	 *            : String : Name of by type
@@ -946,8 +930,8 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	 *            : String : Locator value
 	 * @param accessName2
 	 */
-	public void selectOptionFromRadioButtonGroup(String accessType, String option, String by, String accessName) {
-		List<WebElement> radioButtonGroup = driver.findElements(getelementbytype(accessType, accessName));
+	public void selectOptionFromRadioButtonGroup(SelectorType selectorType, String option, String by, String accessName) {
+		List<WebElement> radioButtonGroup = driver.findElements(getElementByType(selectorType, accessName));
 		for (WebElement rb : radioButtonGroup) {
 			if (by.equals("value")) {
 				if (rb.getAttribute("value").equals(option) && !rb.isSelected())
@@ -1011,15 +995,15 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	/**
 	 * Method to Explicitly wait for element to be displayed
 	 * 
-	 * @param accessType
+	 * @param selectorType
 	 *            : String : Locator type (id, name, class, xpath, css)
 	 * @param accessName
 	 *            : String : Locator value
 	 * @param duration
 	 *            : String : Time to wait for element to be displayed
 	 */
-	public void waitForElementToDisplay(String accessType, String accessName, String duration) {
-		By byEle = getelementbytype(accessType, accessName);
+	public void waitForElementToDisplay(SelectorType selectorType, String accessName, String duration) {
+		By byEle = getElementByType(selectorType, accessName);
 		WebDriverWait wait = (new WebDriverWait(driver, Integer.parseInt(duration) * 1000));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(byEle));
 	}
@@ -1027,15 +1011,15 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 	/**
 	 * Method to Explicitly wait for element to be enabled=click
 	 * 
-	 * @param accessType
+	 * @param selectorType
 	 *            : String : Locator type (id, name, class, xpath, css)
 	 * @param accessName
 	 *            : String : Locator value
 	 * @param duration
 	 *            : String : Time to wait for element to be clickable
 	 */
-	public void waitForElementToClick(String accessType, String accessName, String duration) {
-		By byEle = getelementbytype(accessType, accessName);
+	public void waitForElementToClick(SelectorType selectorType, String accessName, String duration) {
+		By byEle = getElementByType(selectorType, accessName);
 		WebDriverWait wait = (new WebDriverWait(driver, Integer.parseInt(duration) * 1000));
 		wait.until(ExpectedConditions.elementToBeClickable(byEle));
 	}
@@ -1136,7 +1120,4 @@ public class BrowserUtils extends SelectElementByType implements BaseTest {
 			e.printStackTrace();
 		}
 	}
-	
-	
-
 }

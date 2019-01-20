@@ -4,7 +4,7 @@ import com.qa.tlv.methods.InitSystemProperties;
 
 public class DriverManagerFactory {
 
-	static ChromeDriverSetup chromeSetup = new ChromeDriverSetup();
+	static WebDriverSetup chromeSetup = new WebDriverSetup();
 	static InitSystemProperties initSystemProperties = new InitSystemProperties();
 
 	static // get browser type from user selection

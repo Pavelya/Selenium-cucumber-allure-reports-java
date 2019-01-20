@@ -13,7 +13,7 @@ import com.qa.tlv.logger.Log;
 
 public class ChromeDriverManager extends DriverManager {
 
-	ChromeDriverSetup chromeDriverSetup = new ChromeDriverSetup();
+	WebDriverSetup chromeDriverSetup = new WebDriverSetup();
 
 	private ChromeDriverService chService;
 
@@ -56,14 +56,8 @@ public class ChromeDriverManager extends DriverManager {
 		capabilities.setCapability(ChromeOptions.CAPABILITY, options);
 		driver = new ChromeDriver(chService, capabilities);
 	}
-
+    
     public boolean getPlatform() {
-        boolean ifMobilePlatform = false;
-        if (System.getProperty("browser").contains("mobile")) {
-            ifMobilePlatform = true;
-        } else {
-            ifMobilePlatform = false;
-        }
-        return ifMobilePlatform;
+        return (System.getProperty("browser").contains("mobile")) ? true : false;
     }
 }

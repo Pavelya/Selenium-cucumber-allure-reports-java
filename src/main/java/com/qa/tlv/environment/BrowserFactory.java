@@ -10,7 +10,7 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 
 public class BrowserFactory {
 
-    static ChromeDriverSetup chromeDriverSetup = new ChromeDriverSetup();
+    static WebDriverSetup chromeDriverSetup = new WebDriverSetup();
     private static Map<String, WebDriver> drivers = new HashMap<String, WebDriver>();
 
     /*

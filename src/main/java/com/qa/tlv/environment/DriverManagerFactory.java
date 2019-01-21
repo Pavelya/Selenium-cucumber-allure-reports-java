@@ -8,7 +8,7 @@ public class DriverManagerFactory {
 	static InitSystemProperties initSystemProperties = new InitSystemProperties();
 
 	static // get browser type from user selection
-	String browserName = System.getProperty("browser");
+	String browserName = System.getProperty("browser", "chrome");
 
 	public static DriverManager getManager(DriverType type) {
 

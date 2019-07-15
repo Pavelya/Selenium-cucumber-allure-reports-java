@@ -23,12 +23,7 @@ Running the tests - command line mode
 -------------------
 cd to project path  
 
-mvn clean test   
-"-Dbrowser=chrome"  
-"-Denv=pp1"  
-"-Dtest=BaseRunner"  
-"-Dcucumber.options=--tags @functional_tests"  
-"-Dcucumber.options="--plugin io.qameta.allure.cucumberjvm.AllureCucumberJvm"
+mvn clean test -Dbrowser=chrome -Denv=pp1 -Dtest=BaseRunner "-Dcucumber.options=--tags @functional_tests --plugin io.qameta.allure.cucumberjvm.AllureCucumberJvm"
 
 Running the tests - from IDE  
 -------------------
@@ -68,7 +63,3 @@ Authors
 License
 -------------
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-Acknowledgments
--------------
-Forked from: https://github.com/VaishnaviGunwante/selenium-cucumber-java
